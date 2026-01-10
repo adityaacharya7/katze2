@@ -1,11 +1,10 @@
 :root {
-  --primary-color: #ffffff; /* Dark blue from Fruitkha */
-  --secondary-color: #F28123; /* Orange from Fruitkha */
-  --text-color: #fff; /* White text */
-  --accent-color: #F28123; /* Orange accent */
-  --google-red: #db4437;
-  --facebook-blue: #1877f2;
-  --background-gradient: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+  --primary-color: #F28123;
+  /* Katze Orange */
+  --text-color: #333;
+  --bg-color: #f3f4f6;
+  --input-bg: #f9fafb;
+  --input-border: #e5e7eb;
 }
 
 * {
@@ -15,181 +14,225 @@
 }
 
 body {
-  font-family: "Poppins", sans-serif; /* Fruitkha font */
-  background: var(--background-gradient);
-  color: var(--text-color);
-  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--bg-color);
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  text-align: center;
+  min-height: 100vh;
 }
 
-#backgroundCanvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
+/* Hide blobs from previous design */
+.blob {
+  display: none;
 }
 
-.login-container {
-  position: relative;
-  z-index: 1;
+.login-wrapper {
+  background: white;
   width: 90%;
-  max-width: 400px;
-  background: rgba(5, 25, 34, 0.8); /* Semi-transparent dark blue */
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  animation: fadeIn 1s ease-in-out;
+  max-width: 1100px;
+  height: 85vh;
+  /* Fixed height for clean look */
+  min-height: 650px;
+  border-radius: 30px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* Left Side - Form */
+.left-panel {
+  flex: 1;
+  padding: 40px 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+  /* Align text left as per design */
+  overflow-y: auto;
+  /* Allow scroll if form is too tall */
 }
 
-h1 {
-  margin-bottom: 20px;
-  font-size: 2rem;
-  font-weight: 700; /* Bold heading */
-  color: var(--text-color);
-  animation: slideIn 1s ease-in-out;
-}
-
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(-50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+.left-panel h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 5px;
 }
 
 .headingsContainer h3 {
-  margin: 0;
-  color: var(--text-color);
-  font-weight: 600; /* Semi-bold */
+  display: none;
+  /* Hide old generic header */
 }
 
-.headingsContainer p {
-  font-size: 14px;
-  color: var(--text-color);
-  margin-bottom: 20px;
-  opacity: 0.8; /* Slightly transparent */
+.headingsContainer p,
+.left-panel>p {
+  color: #666;
+  margin-bottom: 30px;
+  font-size: 1rem;
 }
 
-input, button {
+form {
   width: 100%;
-  padding: 12px;
-  margin: 10px 0;
-  border: none;
-  border-radius: 50px; /* Rounded corners */
-  font-size: 16px;
-  transition: all 0.3s ease;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #333;
+  font-size: 0.95rem;
 }
 
 input {
-  background: rgba(255, 255, 255, 0.1); /* Light transparent background */
-  color: var(--text-color);
-}
-
-input::placeholder {
-  color: rgba(255, 255, 255, 0.7); /* Placeholder text */
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 20px;
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: 12px;
+  font-size: 1rem;
+  color: #333;
+  transition: all 0.2s;
 }
 
 input:focus {
   outline: none;
-  border: 1px solid var(--accent-color);
-  background: rgba(255, 255, 255, 0.2);
-}
-
-button {
-  background: var(--accent-color); /* Orange button */
-  color: var(--text-color);
-  cursor: pointer;
-  font-weight: 600; /* Bold text */
-}
-
-button:hover {
-  background: #e76f1a; /* Darker orange on hover */
-  transform: translateY(-2px);
+  border-color: var(--primary-color);
+  background: white;
+  box-shadow: 0 0 0 4px rgba(242, 129, 35, 0.1);
 }
 
 .subcontainer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 10px 0;
+  margin-bottom: 30px;
+  font-size: 0.9rem;
 }
 
 .subcontainer label {
+  margin: 0;
+  color: #666;
+  font-weight: 400;
   display: flex;
   align-items: center;
-  color: var(--text-color);
-  font-size: 14px;
-  gap: 8px; /* Adds spacing between the checkbox and text */
 }
 
 .subcontainer input[type="checkbox"] {
-  width: 16px;
-  height: 16px;
-  cursor: pointer;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  margin-right: 8px;
+  transform: none;
+  /* Reset logic from old CSS */
 }
 
-.subcontainer .forgotpsd a {
-  color: #e67e22;
+button {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(to right, #F28123, #ff6b6b);
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s;
+  box-shadow: 0 10px 20px rgba(242, 129, 35, 0.3);
+  margin-top: 10px;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 25px rgba(242, 129, 35, 0.4);
+}
+
+.google-btn {
+  background: white;
+  color: #333;
+  border: 1px solid #ddd;
+  box-shadow: none;
+  margin-top: 15px;
+  display: flex !important;
+  /* Force flex */
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.google-btn:hover {
+  background: #f9f9f9;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.register {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+a {
+  color: var(--primary-color);
   font-weight: 600;
   text-decoration: none;
 }
 
-.subcontainer .forgotpsd a:hover {
+a:hover {
   text-decoration: underline;
 }
 
-
-.forgotpsd a, .register a, .aboutus a {
-  color: var(--accent-color);
-  text-decoration: none;
-  font-weight: 600; /* Bold links */
+.error-message,
+.error {
+  color: #ef4444;
+  font-size: 0.85rem;
+  margin-bottom: 15px;
+  display: block;
 }
 
-.forgotpsd a:hover, .register a:hover, .aboutus a:hover {
-  color: var(--text-color);
-  text-decoration: underline;
+/* Right Side - Image */
+.right-panel {
+  flex: 1;
+  background-image: url('assets/img/hero-bg.jpg');
+  /* Verify path in HTML context */
+  background-size: cover;
+  background-position: center;
+  position: relative;
 }
 
-/* Additional Fruitkha-inspired styles */
-.login-container::before {
-  content: '';
-  position: absolute;
-  top: -10px;
-  left: -10px;
-  right: -10px;
-  bottom: -10px;
-  background: rgba(242, 129, 35, 0.1); /* Light orange overlay */
-  border-radius: 20px;
-  z-index: -1;
-}
-
-.login-container::after {
+/* Optional Overlay */
+.right-panel::after {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  border: 2px solid var(--accent-color);
-  border-radius: 12px;
-  z-index: -1;
-  opacity: 0.3;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 100%);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .right-panel {
+    display: none;
+  }
+
+  .login-wrapper {
+    min-height: auto;
+    height: auto;
+    padding: 0;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: none;
+    background: transparent;
+  }
+
+  .left-panel {
+    padding: 30px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  }
 }

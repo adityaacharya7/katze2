@@ -35,22 +35,46 @@ export async function fetchProducts() {
 // Seed Initial Data (if empty)
 export async function seedProducts() {
     const initialData = [
-        { name: "Cat Dewormer", price: 1200, category: "Cats", image_url: "assets/img/products/product-img-1.jpg", stock: 50 },
-        { name: "Dog Vitamin C", price: 1500, category: "Dogs", image_url: "assets/img/products/product-img-2.jpg", stock: 65 },
-        { name: "Bird Calcium", price: 800, category: "Other Animals", image_url: "assets/img/products/product-img-3.jpg", stock: 30 },
-        { name: "Kitten Milk", price: 2000, category: "Cats", image_url: "assets/img/products/product-img-4.jpg", stock: 20 },
-        { name: "Puppy Chow", price: 2500, category: "Dogs", image_url: "assets/img/products/product-img-5.jpg", stock: 45 },
-        { name: "Rabbit Hay", price: 900, category: "Other Animals", image_url: "assets/img/products/product-img-6.jpg", stock: 100 }
+        // CATS
+        { name: "Feline Dewormer Tablets", price: 1200, category: "Cats", stock: 50 },
+        { name: "Hairball Remedy Gel", price: 850, category: "Cats", stock: 40 },
+        { name: "Flea & Tick Spot-on (Cats)", price: 2100, category: "Cats", stock: 100 },
+        { name: "Cat Multivitamins", price: 1500, category: "Cats", stock: 60 },
+        { name: "Antibiotic Eye Drops", price: 600, category: "Cats", stock: 30 },
+        { name: "Cat Urinary Support", price: 1800, category: "Cats", stock: 25 },
+        { name: "Kitten Milk Replacer", price: 2000, category: "Cats", stock: 20 },
+
+        // DOGS
+        { name: "Canine Heartworm Preventative", price: 3500, category: "Dogs", stock: 45 },
+        { name: "Hip & Joint Glucosamine", price: 2800, category: "Dogs", stock: 55 },
+        { name: "Anti-Itch Spray", price: 950, category: "Dogs", stock: 70 },
+        { name: "Dog Ear Cleaner", price: 700, category: "Dogs", stock: 80 },
+        { name: "Dental Water Additive", price: 1300, category: "Dogs", stock: 40 },
+        { name: "Puppy Probiotics", price: 1600, category: "Dogs", stock: 50 },
+        { name: "Dog Vitamin C", price: 1500, category: "Dogs", stock: 65 },
+        { name: "Calming Chews for Dogs", price: 2200, category: "Dogs", stock: 35 },
+
+        // OTHER ANIMALS
+        { name: "Rabbit Digestive Support", price: 900, category: "Other Animals", stock: 30 },
+        { name: "Hamster Multivitamin Drops", price: 500, category: "Other Animals", stock: 40 },
+        { name: "Bird Mite & Lice Spray", price: 750, category: "Other Animals", stock: 25 },
+        { name: "Aquarium Antibiotics", price: 1100, category: "Other Animals", stock: 15 },
+        { name: "Turtle Shell Conditioner", price: 650, category: "Other Animals", stock: 20 },
+        { name: "Guinea Pig Vitamin C", price: 800, category: "Other Animals", stock: 100 }
     ];
 
     try {
         console.log("Seeding data...");
+        // Batch writes could be better but sticking to loop for simplicity with current imports
         for (const product of initialData) {
+            // Optional: Check if exists to avoid duplicates?
+            // For now, naive insert. User should clear DB if they want fresh start.
             await addDoc(productsCollection, product);
         }
         console.log("Seeding complete!");
     } catch (error) {
         console.error("Error seeding data: ", error);
+        throw error;
     }
 }
 

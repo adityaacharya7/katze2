@@ -27,49 +27,46 @@
 </head>
 
 <body>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
 
-    <div class="login-container">
-        <h1>Sign Up to Katze!</h1>
+    <div class="login-wrapper animate__animated animate__fadeIn">
+        <!-- Left Side: Form -->
+        <div class="left-panel">
+            <h1>Create Account</h1>
+            <p>Enter your details below to join Katze.</p>
 
-        <form id="signupForm">
-            <div class="headingsContainer">
-                <h3>Create Your Account</h3>
-                <p>Enter your details below</p>
-                <p id="globalError" class="error" style="text-align: center; font-size: 14px;"></p>
-            </div>
+            <form id="signupForm">
+                <p id="globalError" class="error" style="text-align: center;"></p>
 
-            <label for="email">Your Email</label>
-            <input type="text" id="email" placeholder="Enter Email" name="email" required>
-            <span id="emailError" class="error"></span>
-            <br><br>
+                <label for="email">Email</label>
+                <input type="text" id="email" placeholder="Enter your email" name="email" required>
+                <span id="emailError" class="error"></span>
 
-            <label for="username">Your Username</label>
-            <input type="text" id="username" placeholder="Enter Username" name="username" required>
-            <br>
+                <label for="username">Username</label>
+                <input type="text" id="username" placeholder="Choose a username" name="username" required>
 
-            <label for="password">Your Password</label>
-            <input type="password" id="password" placeholder="Enter Password" name="password" required>
-            <span id="passwordStrength" class="error"></span>
-            <br><br>
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Create a password" name="password" required>
+                <span id="passwordStrength" class="error"></span>
 
-            <label for="confirmPassword">Confirm Password</label>
-            <input type="password" id="confirmPassword" placeholder="Confirm Password" name="confirmPassword" required>
-            <span id="confirmPasswordError" class="error"></span>
-            <br><br>
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" placeholder="Confirm your password" name="confirmPassword"
+                    required>
+                <span id="confirmPasswordError" class="error"></span>
 
-            <div class="subcontainer">
-                <label>
-                    <input type="checkbox" checked="checked" name="dontlogoff"> Stay Logged in
-                </label>
-            </div>
+                <button type="submit" id="signupBtn">Sign Up</button>
 
-            <button type="submit" id="signupBtn">Sign Up</button>
+                <p class="register">Already a member? <a href="login.html">Login here!</a></p>
+                <p class="register" style="margin-top: 5px;"><a href="index.html">Back to Home</a></p>
 
-            <p class="register">Already a member? <a href="login.html">Login here!</a></p>
-            <p class="register" style="margin-top: 10px;"><a href="index.html">Back to Home</a></p>
+                <div id="geo-location" style="color: #999; font-size: 12px; margin-top: 20px; text-align: center;">
+                </div>
+            </form>
+        </div>
 
-            <div id="geo-location" style="color: white; font-size: 14px;"></div>
-        </form>
+        <!-- Right Side: Image -->
+        <div class="right-panel"></div>
     </div>
 
     <script type="module">
