@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cart - Katze</title>
+
+    <link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/all.min.css">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/owl.carousel.css">
+    <link rel="stylesheet" href="assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="assets/css/animate.css">
+    <link rel="stylesheet" href="assets/css/meanmenu.min.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .cart-table {
+            width: 100%;
+            background-color: #f9fafb;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .cart-table thead th {
+            background-color: #e2e8f0;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .cart-table tbody td {
+            vertical-align: middle;
+            padding: 15px;
+            font-size: 15px;
+            color: #334155;
+        }
+
+        .cart-table img {
+            width: 80px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .text-end {
+            text-align: right;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!--PreLoader-->
+    <div class="loader">
+        <div class="loader-inner">
+            <div class="circle"></div>
+        </div>
+    </div>
+
+    <div class="top-header-area" id="sticker">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-sm-12 text-center">
+                    <div class="main-menu-wrap">
+                        <div class="site-logo">
+                            <a href="index.html">
+                                <img src="assets/img/logo.png" alt="">
+                            </a>
+                        </div>
+                        <nav class="main-menu">
+                            <ul>
+                                <li><a href="index.html">Home</a></li>
+                                <li><a href="about.html">About</a></li>
+                                <li><a href="shop.html">Shop</a>
+                                    <ul class="sub-menu">
+                                        <li><a href="shop.html">Shop</a></li>
+                                        <li><a href="checkout.html">Check Out</a></li>
+                                        <li><a href="cart.html">Cart</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="adoption.html">Adoption</a></li>
+                                <li><a href="contact.html">Contact</a></li>
+                                <li>
+                                    <div class="header-icons" style="display: flex; align-items: center; gap: 15px;">
+                                        <div id="auth-section"><a href="login.html">Login</a></div>
+                                        <a class="shopping-cart" href="cart.html">
+                                            <i class="fas fa-shopping-cart"></i>
+                                            <span id="cart-count" class="badge badge-danger"
+                                                style="display: none;">0</span>
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </nav>
+                        <div class="mobile-menu"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="breadcrumb-section breadcrumb-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 text-center">
+                    <div class="breadcrumb-text">
+                        <p>Love Your Pets!!</p>
+                        <h1>Cart</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-150 mb-150">
+        <table class="table cart-table">
+            <thead>
+                <tr>
+                    <th>Remove</th>
+                    <th>Product Image</th>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody id="cart-body">
+                <!-- Javascript will load items here -->
+            </tbody>
+        </table>
+
+        <div class="text-end" id="cart-summary" style="display: none;">
+            <h5>Subtotal: <span id="subtotal">₹0.00</span></h5>
+            <h5>Shipping: <span id="shipping">₹0.00</span></h5>
+            <h5>Total: <span id="total-price">₹0.00</span></h5>
+            <button class="boxed-btn mt-3" onclick="window.location.href='checkout.html'">Proceed to Checkout</button>
+        </div>
+
+        <div id="empty-cart-msg" class="text-center" style="display: none;">
+            <h3>Your cart is empty.</h3>
+            <a href="shop.html" class="boxed-btn mt-3">Go to Shop</a>
+        </div>
+    </div>
+
+    <div class="copyright">
+        <div class="container">
+            <p>Copyrights &copy; 2025 - <a href="#">Katze</a>, All Rights Reserved.</p>
+        </div>
+    </div>
+
+    <script src="assets/js/jquery-1.11.3.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/jquery.countdown.js"></script>
+    <script src="assets/js/jquery.isotope-3.0.6.min.js"></script>
+    <script src="assets/js/waypoints.js"></script>
+    <script src="assets/js/owl.carousel.min.js"></script>
+    <script src="assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="assets/js/jquery.meanmenu.min.js"></script>
+    <script src="assets/js/sticker.js"></script>
+    <script src="assets/js/main.js"></script>
+
+    <script type="module" src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCart();
+        });
+
+        function renderCart() {
+            const cartItems = JSON.parse(localStorage.getItem('katze_cart')) || [];
+            const tbody = document.getElementById('cart-body');
+            const summary = document.getElementById('cart-summary');
+            const emptyMsg = document.getElementById('empty-cart-msg');
+
+            tbody.innerHTML = '';
+
+            if (cartItems.length === 0) {
+                summary.style.display = 'none';
+                emptyMsg.style.display = 'block';
+                return;
+            }
+
+            summary.style.display = 'block';
+            emptyMsg.style.display = 'none';
+
+            let subtotal = 0;
+            let shipping = 0;
+
+            cartItems.forEach((item, index) => {
+                const itemTotal = item.price * item.quantity;
+                const itemShipping = item.price * 0.05 * item.quantity;
+
+                subtotal += itemTotal;
+                shipping += itemShipping;
+
+                const row = `
+                    <tr>
+                        <td>
+                            <button class="btn btn-danger btn-sm" onclick="removeItem(${index})"><i class="fas fa-times"></i></button>
+                        </td>
+                        <td><img src="assets/img/products/product-img-1.jpg" alt="${item.name}" width="80"></td>
+                        <td>${item.name}</td>
+                        <td>₹${item.price}</td>
+                        <td>${item.quantity}</td>
+                        <td>₹${itemTotal.toFixed(2)}</td>
+                    </tr>
+                `;
+                tbody.insertAdjacentHTML('beforeend', row);
+            });
+
+            document.getElementById('subtotal').innerText = `₹${subtotal.toFixed(2)}`;
+            document.getElementById('shipping').innerText = `₹${shipping.toFixed(2)}`;
+            document.getElementById('total-price').innerText = `₹${(subtotal + shipping).toFixed(2)}`;
+        }
+
+        window.removeItem = function (index) {
+            let cart = JSON.parse(localStorage.getItem('katze_cart')) || [];
+            cart.splice(index, 1);
+            localStorage.setItem('katze_cart', JSON.stringify(cart));
+            renderCart();
+            // Update app.js counter? We need to trigger it or reload but app.js runs on load.
+            // Dispatch custom event or just manual update if helper was global.
+            // Since app.js is module, we can't easily access it unless we attached to window.
+            // Easy fix: reload page for now or dispatch storage event
+            window.location.reload();
+        }
+    </script>
+</body>
+
+</html>

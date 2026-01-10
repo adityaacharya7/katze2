@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Checkout - Katze</title>
+
+    <link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/all.min.css">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/owl.carousel.css">
+    <link rel="stylesheet" href="assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="assets/css/animate.css">
+    <link rel="stylesheet" href="assets/css/meanmenu.min.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!--PreLoader-->
+    <div class="loader">
+        <div class="loader-inner">
+            <div class="circle"></div>
+        </div>
+    </div>
+
+    <div class="top-header-area" id="sticker">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-sm-12 text-center">
+                    <div class="main-menu-wrap">
+                        <div class="site-logo">
+                            <a href="index.html">
+                                <img src="assets/img/logo.png" alt="">
+                            </a>
+                        </div>
+                        <nav class="main-menu">
+                            <ul>
+                                <li><a href="index.html">Home</a></li>
+                                <li><a href="about.html">About</a></li>
+                                <li><a href="shop.html">Shop</a>
+                                    <ul class="sub-menu">
+                                        <li><a href="shop.html">Shop</a></li>
+                                        <li><a href="checkout.html">Check Out</a></li>
+                                        <li><a href="cart.html">Cart</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="adoption.html">Adoption</a></li>
+                                <li><a href="contact.html">Contact</a></li>
+                                <li>
+                                    <div class="header-icons" style="display: flex; align-items: center; gap: 15px;">
+                                        <div id="auth-section"><a href="login.html">Login</a></div>
+                                        <a class="shopping-cart" href="cart.html">
+                                            <i class="fas fa-shopping-cart"></i>
+                                            <span id="cart-count" class="badge badge-danger"
+                                                style="display: none;">0</span>
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </nav>
+                        <div class="mobile-menu"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="breadcrumb-section breadcrumb-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 text-center">
+                    <div class="breadcrumb-text">
+                        <p>Love Your Pets!!</p>
+                        <h1>Check Out</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="checkout-section mt-150 mb-150">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="checkout-accordion-wrap">
+                        <div class="accordion" id="accordionExample">
+                            <!-- Billing Address -->
+                            <div class="card single-accordion">
+                                <div class="card-header" id="headingOne">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-link" type="button" data-toggle="collapse"
+                                            data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            Billing Address
+                                        </button>
+                                    </h5>
+                                </div>
+
+                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                                    data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <form id="checkoutForm">
+                                            <div class="billing-address-form">
+                                                <p><input type="text" id="name" placeholder="Name" required></p>
+                                                <p><input type="email" id="email" placeholder="Email" required></p>
+                                                <p><input type="text" id="address" placeholder="Address" required></p>
+                                                <p><input type="tel" id="phone" placeholder="Phone" required></p>
+                                                <p><textarea id="notes" cols="30" rows="5"
+                                                        placeholder="Any Notes (Optional)"></textarea></p>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="order-details-wrap">
+                        <table class="order-details">
+                            <thead>
+                                <tr>
+                                    <th>Your order Details</th>
+                                    <th>Price</th>
+                                </tr>
+                            </thead>
+                            <tbody class="order-details-body" id="order-items">
+                                <!-- Loaded via JS -->
+                            </tbody>
+                            <tbody class="checkout-details">
+                                <tr>
+                                    <td>Subtotal</td>
+                                    <td id="subtotal">₹0.00</td>
+                                </tr>
+                                <tr>
+                                    <td>Shipping</td>
+                                    <td id="shipping">₹0.00</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Total</strong></td>
+                                    <td id="total"><strong>₹0.00</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <a href="#" id="placeOrderBtn" class="boxed-btn">Place Order</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="copyright">
+        <div class="container">
+            <p>Copyrights &copy; 2025 - <a href="#">Katze</a>, All Rights Reserved.</p>
+        </div>
+    </div>
+
+    <script src="assets/js/jquery-1.11.3.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/main.js"></script>
+
+    <script type="module" src="js/app.js"></script>
+    <script type="module">
+        import { placeOrder } from './js/db.js';
+        import { auth } from './js/firebase-config.js';
+
+        let cartTotal = 0;
+        let cartItems = [];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            cartItems = JSON.parse(localStorage.getItem('katze_cart')) || [];
+            const tbody = document.getElementById('order-items');
+
+            if (cartItems.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="2">Cart is empty</td></tr>';
+                return;
+            }
+
+            let subtotal = 0;
+            let shipping = 0;
+
+            cartItems.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                const itemShipping = item.price * 0.05 * item.quantity;
+                subtotal += itemTotal;
+                shipping += itemShipping;
+
+                tbody.insertAdjacentHTML('beforeend', `
+                    <tr>
+                        <td>${item.name} (x${item.quantity})</td>
+                        <td>₹${itemTotal.toFixed(2)}</td>
+                    </tr>
+                 `);
+            });
+
+            cartTotal = subtotal + shipping;
+            document.getElementById('subtotal').innerText = `₹${subtotal.toFixed(2)}`;
+            document.getElementById('shipping').innerText = `₹${shipping.toFixed(2)}`;
+            document.getElementById('total').innerHTML = `<strong>₹${cartTotal.toFixed(2)}</strong>`;
+        });
+
+        document.getElementById('placeOrderBtn').addEventListener('click', async (e) => {
+            e.preventDefault();
+
+            if (cartItems.length === 0) {
+                alert("Your cart is empty!");
+                return;
+            }
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const address = document.getElementById('address').value;
+            const phone = document.getElementById('phone').value;
+
+            if (!name || !email || !address || !phone) {
+                alert("Please fill in all billing details.");
+                return;
+            }
+
+            const btn = document.getElementById('placeOrderBtn');
+            btn.innerText = "Processing...";
+            btn.style.pointerEvents = "none";
+
+            const orderData = {
+                userId: auth.currentUser ? auth.currentUser.uid : 'guest',
+                userEmail: email,
+                name, address, phone,
+                items: cartItems,
+                totalAmount: cartTotal
+            };
+
+            try {
+                const orderId = await placeOrder(orderData);
+                alert("Order Placed Successfully! Order ID: " + orderId);
+                localStorage.removeItem('katze_cart');
+                window.location.href = 'index.html';
+            } catch (error) {
+                console.error(error);
+                alert("Failed to place order. Please try again.");
+                btn.innerText = "Place Order";
+                btn.style.pointerEvents = "auto";
+            }
+        });
+    </script>
+</body>
+
+</html>

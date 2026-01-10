@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My Account - Katze</title>
+
+    <!-- favicon -->
+    <link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
+    <!-- google font -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="assets/css/all.min.css">
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <!-- owl carousel -->
+    <link rel="stylesheet" href="assets/css/owl.carousel.css">
+    <!-- magnific popup -->
+    <link rel="stylesheet" href="assets/css/magnific-popup.css">
+    <!-- animate css -->
+    <link rel="stylesheet" href="assets/css/animate.css">
+    <!-- mean menu css -->
+    <link rel="stylesheet" href="assets/css/meanmenu.min.css">
+    <!-- main style -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <!-- responsive -->
+    <link rel="stylesheet" href="assets/css/responsive.css">
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/account.css">
+</head>
+
+<body>
+
+    <!--PreLoader-->
+    <div class="loader">
+        <div class="loader-inner">
+            <div class="circle"></div>
+        </div>
+    </div>
+    <!--PreLoader Ends-->
+
+    <!-- header -->
+    <div class="top-header-area" id="sticker">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-sm-12 text-center">
+                    <div class="main-menu-wrap">
+                        <!-- logo -->
+                        <div class="site-logo">
+                            <a href="index.html">
+                                <img src="assets/img/logo.png" alt="">
+                            </a>
+                        </div>
+                        <!-- logo -->
+
+                        <!-- menu start -->
+                        <nav class="main-menu">
+                            <ul>
+                                <li><a href="index.html">Home</a></li>
+                                <li><a href="about.html">About</a></li>
+                                <li><a href="shop.html">Shop</a>
+                                    <ul class="sub-menu">
+                                        <li><a href="shop.html">Shop</a></li>
+                                        <li><a href="checkout.html">Check Out</a></li>
+                                        <li><a href="cart.html">Cart</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="adoption.html">Adoption</a></li>
+                                <li><a href="contact.html">Contact</a></li>
+                                <li>
+                                    <div class="header-icons" style="display: flex; align-items: center; gap: 15px;">
+                                        <div id="auth-section">
+                                            <!-- Injected by JS -->
+                                            <a href="login.html" id="login-link">Login</a>
+                                        </div>
+                                        <a class="shopping-cart" href="cart.html">
+                                            <i class="fas fa-shopping-cart"></i>
+                                            <span id="cart-count" class="badge badge-danger"
+                                                style="vertical-align: top; font-size: 10px; display: none;">0</span>
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </nav>
+                        <a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+                        <div class="mobile-menu"></div>
+                        <!-- menu end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end header -->
+
+    <!-- breadcrumb-section -->
+    <div class="breadcrumb-section breadcrumb-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 text-center">
+                    <div class="breadcrumb-text">
+                        <p>Welcome Back</p>
+                        <h1>My Account</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end breadcrumb section -->
+
+    <!-- Account Page Section -->
+    <div class="account-section mt-80 mb-80">
+        <div class="container">
+            <div class="row">
+                <!-- Sidebar -->
+                <div class="col-lg-3 col-md-4">
+                    <div class="account-sidebar">
+                        <div class="user-brief">
+                            <div class="user-avatar" id="user-avatar-initial">U</div>
+                            <div class="user-names">
+                                <h4 id="sidebar-username">Loading...</h4>
+                                <p id="sidebar-email">loading...</p>
+                            </div>
+                        </div>
+                        <ul class="account-nav">
+                            <li class="active" data-target="dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard
+                            </li>
+                            <li data-target="orders"><i class="fas fa-shopping-bag"></i> My Orders</li>
+                            <li data-target="addresses"><i class="fas fa-map-marker-alt"></i> Address Book</li>
+                            <li data-target="settings"><i class="fas fa-cog"></i> Account Details</li>
+                            <li id="account-logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Content Area -->
+                <div class="col-lg-9 col-md-8">
+
+                    <!-- Dashboard Tab -->
+                    <div id="dashboard" class="account-tab-content active">
+                        <h3>Dashboard</h3>
+                        <p>Hello <span id="dashboard-username" class="font-weight-bold">User</span>!</p>
+                        <p>From your account dashboard you can view your <a href="#" class="switch-tab"
+                                data-target="orders">recent orders</a>, manage your <a href="#" class="switch-tab"
+                                data-target="addresses">shipping and billing addresses</a>, and <a href="#"
+                                class="switch-tab" data-target="settings">edit your password and account details</a>.
+                        </p>
+
+                        <div class="row mt-4">
+                            <div class="col-md-4">
+                                <div class="dashboard-card" id="total-orders-card">
+                                    <i class="fas fa-shopping-basket"></i>
+                                    <h5>Total Orders</h5>
+                                    <span class="count">0</span>
+                                </div>
+                            </div>
+                            <!-- Add more stats if needed -->
+                        </div>
+                    </div>
+
+                    <!-- Orders Tab -->
+                    <div id="orders" class="account-tab-content">
+                        <h3>My Orders</h3>
+                        <div class="table-responsive">
+                            <table class="table account-table">
+                                <thead>
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                        <th>Total</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="orders-list">
+                                    <!-- Orders injected here -->
+                                    <tr>
+                                        <td colspan="5" class="text-center">Loading orders...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Addresses Tab -->
+                    <div id="addresses" class="account-tab-content">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h3>Address Book</h3>
+                            <button class="cart-btn" id="add-address-btn">Add New Address</button>
+                        </div>
+                        <div class="row" id="address-list">
+                            <!-- Addresses injected here -->
+                            <div class="col-12 text-center">Loading addresses...</div>
+                        </div>
+
+                        <!-- Add/Edit Address Modal Form (hidden by default, toggled via JS or a simple logic) -->
+                        <div id="address-form-container"
+                            style="display: none; margin-top: 20px; border: 1px solid #ddd; padding: 20px; border-radius: 5px;">
+                            <h4 id="address-form-title">Add New Address</h4>
+                            <form id="addressForm">
+                                <input type="hidden" id="address-id">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label>Full Name</label>
+                                        <input type="text" class="form-control" id="addr-name" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label>Phone Number</label>
+                                        <input type="text" class="form-control" id="addr-phone" required>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <label>Address Line 1</label>
+                                        <input type="text" class="form-control" id="addr-line1" required>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <label>Address Line 2 (Optional)</label>
+                                        <input type="text" class="form-control" id="addr-line2">
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label>City</label>
+                                        <input type="text" class="form-control" id="addr-city" required>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label>State</label>
+                                        <input type="text" class="form-control" id="addr-state" required>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label>Zip Code</label>
+                                        <input type="text" class="form-control" id="addr-zip" required>
+                                    </div>
+                                </div>
+                                <button type="submit" class="boxed-btn">Save Address</button>
+                                <button type="button" class="bordered-btn" id="cancel-address-btn">Cancel</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Settings Tab -->
+                    <div id="settings" class="account-tab-content">
+                        <h3>Account Details</h3>
+
+                        <div class="settings-box mb-4">
+                            <h4>Profile Information</h4>
+                            <form id="profileForm">
+                                <div class="form-group">
+                                    <label>Display Name</label>
+                                    <input type="text" class="form-control" id="profile-name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Email Address</label>
+                                    <input type="email" class="form-control" id="profile-email" disabled
+                                        title="Cannot change email">
+                                    <small class="text-muted">Email cannot be changed.</small>
+                                </div>
+                                <button type="submit" class="boxed-btn">Update Profile</button>
+                            </form>
+                        </div>
+
+                        <div class="settings-box">
+                            <h4>Password Change</h4>
+                            <form id="passwordForm">
+                                <div class="form-group">
+                                    <label>New Password</label>
+                                    <input type="password" class="form-control" id="new-password" required
+                                        minlength="6">
+                                </div>
+                                <div class="form-group">
+                                    <label>Confirm New Password</label>
+                                    <input type="password" class="form-control" id="confirm-password" required
+                                        minlength="6">
+                                </div>
+                                <button type="submit" class="bordered-btn">Change Password</button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end Account Page Section -->
+
+    <!-- footer -->
+    <div class="footer-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-box about-widget">
+                        <h2 class="widget-title">About us</h2>
+                        <p>At Katze, we rescue, rehabilitate, and rehome animals, giving them a second chance at a
+                            loving home.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-box get-in-touch">
+                        <h2 class="widget-title">Get in Touch</h2>
+                        <ul>
+                            <li>Location: Pillai College of Engineering, New Panvel</li>
+                            <li>Email: support@katze.com</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-box">
+                        <h2 class="widget-title">Social</h2>
+                        <ul class="social-links" style="list-style: none; padding: 0;">
+                            <li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i> Facebook</a></li>
+                            <li><a href="#" target="_blank"><i class="fab fa-twitter"></i> Twitter</a></li>
+                            <li><a href="#" target="_blank"><i class="fab fa-instagram"></i> Instagram</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end footer -->
+
+    <!-- copyright -->
+    <div class="copyright">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-12">
+                    <p>Copyrights &copy; 2025 - <a href="#">Katze</a>, All Rights Reserved.</p>
+                </div>
+                <div class="col-lg-6 text-right col-md-12">
+                    <div class="social-icons">
+                        <ul style="display: flex; gap: 10px; list-style: none; justify-content: flex-end;">
+                            <li id="geo-location" style="color: white; font-size: 14px;"></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end copyright -->
+
+    <!-- jquery -->
+    <script src="assets/js/jquery-1.11.3.min.js"></script>
+    <!-- bootstrap -->
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <!-- count down -->
+    <script src="assets/js/jquery.countdown.js"></script>
+    <!-- isotope -->
+    <script src="assets/js/jquery.isotope-3.0.6.min.js"></script>
+    <!-- waypoints -->
+    <script src="assets/js/waypoints.js"></script>
+    <!-- owl carousel -->
+    <script src="assets/js/owl.carousel.min.js"></script>
+    <!-- magnific popup -->
+    <script src="assets/js/jquery.magnific-popup.min.js"></script>
+    <!-- mean menu -->
+    <script src="assets/js/jquery.meanmenu.min.js"></script>
+    <!-- sticker js -->
+    <script src="assets/js/sticker.js"></script>
+    <!-- main js -->
+    <script src="assets/js/main.js"></script>
+
+    <!-- Firebase App Logic -->
+    <script type="module" src="js/app.js"></script>
+    <script type="module" src="js/account.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,195 @@
+:root {
+  --primary-color: #ffffff; /* Dark blue from Fruitkha */
+  --secondary-color: #F28123; /* Orange from Fruitkha */
+  --text-color: #fff; /* White text */
+  --accent-color: #F28123; /* Orange accent */
+  --google-red: #db4437;
+  --facebook-blue: #1877f2;
+  --background-gradient: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif; /* Fruitkha font */
+  background: var(--background-gradient);
+  color: var(--text-color);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+#backgroundCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.login-container {
+  position: relative;
+  z-index: 1;
+  width: 90%;
+  max-width: 400px;
+  background: rgba(5, 25, 34, 0.8); /* Semi-transparent dark blue */
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+h1 {
+  margin-bottom: 20px;
+  font-size: 2rem;
+  font-weight: 700; /* Bold heading */
+  color: var(--text-color);
+  animation: slideIn 1s ease-in-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.headingsContainer h3 {
+  margin: 0;
+  color: var(--text-color);
+  font-weight: 600; /* Semi-bold */
+}
+
+.headingsContainer p {
+  font-size: 14px;
+  color: var(--text-color);
+  margin-bottom: 20px;
+  opacity: 0.8; /* Slightly transparent */
+}
+
+input, button {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 50px; /* Rounded corners */
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+input {
+  background: rgba(255, 255, 255, 0.1); /* Light transparent background */
+  color: var(--text-color);
+}
+
+input::placeholder {
+  color: rgba(255, 255, 255, 0.7); /* Placeholder text */
+}
+
+input:focus {
+  outline: none;
+  border: 1px solid var(--accent-color);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+button {
+  background: var(--accent-color); /* Orange button */
+  color: var(--text-color);
+  cursor: pointer;
+  font-weight: 600; /* Bold text */
+}
+
+button:hover {
+  background: #e76f1a; /* Darker orange on hover */
+  transform: translateY(-2px);
+}
+
+.subcontainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.subcontainer label {
+  display: flex;
+  align-items: center;
+  color: var(--text-color);
+  font-size: 14px;
+  gap: 8px; /* Adds spacing between the checkbox and text */
+}
+
+.subcontainer input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.subcontainer .forgotpsd a {
+  color: #e67e22;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.subcontainer .forgotpsd a:hover {
+  text-decoration: underline;
+}
+
+
+.forgotpsd a, .register a, .aboutus a {
+  color: var(--accent-color);
+  text-decoration: none;
+  font-weight: 600; /* Bold links */
+}
+
+.forgotpsd a:hover, .register a:hover, .aboutus a:hover {
+  color: var(--text-color);
+  text-decoration: underline;
+}
+
+/* Additional Fruitkha-inspired styles */
+.login-container::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  background: rgba(242, 129, 35, 0.1); /* Light orange overlay */
+  border-radius: 20px;
+  z-index: -1;
+}
+
+.login-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 2px solid var(--accent-color);
+  border-radius: 12px;
+  z-index: -1;
+  opacity: 0.3;
+}

@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shop - Katze</title>
+
+    <link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/all.min.css">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/owl.carousel.css">
+    <link rel="stylesheet" href="assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="assets/css/animate.css">
+    <link rel="stylesheet" href="assets/css/meanmenu.min.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* Product Section Styling */
+        .product-section {
+            background-color: #f8f9fa;
+            padding: 80px 0;
+        }
+
+        .product-filters ul li {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 0 10px;
+            cursor: pointer;
+            border: 2px solid #3b82f6;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .product-filters ul li.active,
+        .product-filters ul li:hover {
+            background-color: #3b82f6;
+            color: #fff;
+        }
+
+        .single-product-item {
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            margin-bottom: 40px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .single-product-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        .single-product-item h3 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-top: 20px;
+        }
+
+        .product-price {
+            font-size: 20px;
+            color: #10b981;
+            font-weight: 700;
+            margin: 15px 0;
+        }
+
+        .cart-btn {
+            background-color: #3b82f6;
+            color: #fff;
+            padding: 12px 20px;
+            margin-top: 12px;
+            border: none;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 15px;
+            display: inline-flex;
+            align-items: center;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .cart-btn:hover {
+            background-color: #2563eb;
+            color: #fff;
+        }
+
+        .loading-spinner {
+            text-align: center;
+            font-size: 20px;
+            padding: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="debug-alert"
+        style="display:none; position: fixed; top: 0; left: 0; width: 100%; background: #ff4444; color: white; padding: 10px; z-index: 9999; text-align: center;">
+    </div>
+    <script>
+        window.onerror = function (msg, url, lineNo, columnNo, error) {
+            const alertBox = document.getElementById('debug-alert');
+            alertBox.style.display = 'block';
+            alertBox.innerHTML += `<p>Error: ${msg} <br> <small>${url}:${lineNo}</small></p>`;
+            return false;
+        };
+
+        if (window.location.protocol === 'file:') {
+            const alertBox = document.getElementById('debug-alert');
+            alertBox.style.display = 'block';
+            alertBox.innerHTML += `<p><strong>WARNING:</strong> You are opening this file using the <code>file://</code> protocol.</p>
+            <p>Modern web security prevents JavaScript modules from working this way.</p>
+            <p>Please run a local server (e.g., <code>npx serve .</code> in the terminal) and open <code>http://localhost:3000/shop.html</code>.</p>`;
+        }
+    </script>
+
+    <!--PreLoader-->
+    <div class="loader">
+        <div class="loader-inner">
+            <div class="circle"></div>
+        </div>
+    </div>
+
+    <div class="top-header-area" id="sticker">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-sm-12 text-center">
+                    <div class="main-menu-wrap">
+                        <div class="site-logo">
+                            <a href="index.html">
+                                <img src="assets/img/logo.png" alt="">
+                            </a>
+                        </div>
+                        <nav class="main-menu">
+                            <ul>
+                                <li><a href="index.html">Home</a></li>
+                                <li><a href="about.html">About</a></li>
+                                <li><a href="shop.html">Shop</a>
+                                    <ul class="sub-menu">
+                                        <li><a href="shop.html">Shop</a></li>
+                                        <li><a href="checkout.html">Check Out</a></li>
+                                        <li><a href="cart.html">Cart</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="adoption.html">Adoption</a></li>
+                                <li><a href="contact.html">Contact</a></li>
+                                <li>
+                                    <div class="header-icons" style="display: flex; align-items: center; gap: 15px;">
+                                        <div id="auth-section"><a href="login.html">Login</a></div>
+                                        <a class="shopping-cart" href="cart.html">
+                                            <i class="fas fa-shopping-cart"></i>
+                                            <span id="cart-count" class="badge badge-danger"
+                                                style="display: none;">0</span>
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </nav>
+                        <div class="mobile-menu"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- breadcrumb-section -->
+    <div class="breadcrumb-section breadcrumb-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 text-center">
+                    <div class="breadcrumb-text">
+                        <p>Love Your Pets!!</p>
+                        <h1>Shop</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Section -->
+    <div class="product-section mt-150 mb-150">
+        <div class="container">
+
+            <!-- Filter Buttons -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="product-filters text-center mb-5">
+                        <ul class="list-inline">
+                            <li class="list-inline-item filter-btn active" data-filter="all">All</li>
+                            <li class="list-inline-item filter-btn" data-filter="cats">Cats</li>
+                            <li class="list-inline-item filter-btn" data-filter="dogs">Dogs</li>
+                            <li class="list-inline-item filter-btn" data-filter="other-animals">Other Animals</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Medicine Products -->
+            <div id="medicine-container" class="row">
+                <div class="col-12 loading-spinner">Loading products from Firestore...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- footer -->
+    <div class="copyright">
+        <div class="container">
+            <p>Copyrights &copy; 2025 - <a href="#">Katze</a>, All Rights Reserved.</p>
+        </div>
+    </div>
+
+    <!-- Reviews Modal -->
+    <div class="modal fade" id="reviewModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reviewModalLabel">Product Reviews</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="reviewsList" style="max-height: 300px; overflow-y: auto;">
+                        <!-- Reviews inserted here -->
+                    </div>
+
+                    <hr>
+
+                    <h6>Write a Review</h6>
+                    <form id="reviewForm">
+                        <input type="hidden" id="reviewProductId">
+                        <div class="form-group">
+                            <label>Rating:</label>
+                            <select class="form-control" id="reviewRating">
+                                <option value="5">★★★★★ (5 Stars)</option>
+                                <option value="4">★★★★☆ (4 Stars)</option>
+                                <option value="3">★★★☆☆ (3 Stars)</option>
+                                <option value="2">★★☆☆☆ (2 Stars)</option>
+                                <option value="1">★☆☆☆☆ (1 Star)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" id="reviewComment" rows="3"
+                                placeholder="Share your experience..." required></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="submitReviewBtn">Submit Review</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/jquery-1.11.3.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/jquery.countdown.js"></script>
+    <script src="assets/js/jquery.isotope-3.0.6.min.js"></script>
+    <script src="assets/js/waypoints.js"></script>
+    <script src="assets/js/owl.carousel.min.js"></script>
+    <script src="assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="assets/js/jquery.meanmenu.min.js"></script>
+    <script src="assets/js/sticker.js"></script>
+    <script src="assets/js/main.js"></script>
+
+    <!-- Firestore Logic -->
+    <script type="module" src="js/app.js"></script>
+    <script type="module">
+        import { fetchProducts, seedProducts, addReview, getReviews } from './js/db.js';
+        import { updateCartUI } from './js/app.js';
+        import { auth } from './js/firebase-config.js';
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        let currentUser = null;
+        onAuthStateChanged(auth, (user) => {
+            currentUser = user;
+        });
+
+        // Load Products & Reviews
+        document.addEventListener('DOMContentLoaded', async () => {
+            const container = document.getElementById('medicine-container');
+
+            try {
+                let products = await fetchProducts();
+
+                // If empty, seed dummy data
+                if (products.length === 0) {
+                    await seedProducts();
+                    products = await fetchProducts();
+                }
+
+                container.innerHTML = ''; // Clear loading
+
+                if (products.length === 0) {
+                    container.innerHTML = '<div class="col-12 text-center"><h3>No products available at the moment.</h3></div>';
+                    return;
+                }
+
+                products.forEach(product => {
+                    const categoryClass = product.category.toLowerCase().replace(' ', '-');
+                    const stock = product.stock !== undefined ? product.stock : 0;
+                    const isOutOfStock = stock <= 0;
+                    const statusText = isOutOfStock ? '<span class="text-danger">Out of Stock</span>' : `<span class="text-muted">Stock: ${stock}</span>`;
+                    const disabledAttr = isOutOfStock ? 'disabled' : '';
+                    const btnText = isOutOfStock ? 'Out of Stock' : '<i class="fas fa-shopping-cart" style="margin-right:8px;"></i> Add to Cart';
+                    const maxQty = stock > 0 ? stock : 1;
+
+                    // Reviews logic
+                    const rating = product.averageRating ? product.averageRating.toFixed(1) : 'No ratings';
+                    const stars = product.averageRating ? getStars(product.averageRating) : '<span class="text-muted">☆☆☆☆☆</span>';
+                    const count = product.ratingCount || 0;
+
+                    const html = `
+                        <div class="col-md-4 mb-4 product-item ${categoryClass}">
+                            <div class="single-product-item shadow p-3 rounded bg-white text-center">
+                                <div class="product-image mb-3">
+                                    <img src="${product.image_url}" alt="${product.name}" onerror="this.src='assets/img/products/product-img-1.jpg';">
+                                </div>
+                                <h3>${product.name}</h3>
+                                <p class="product-price text-success"><strong>Price: ₹${product.price}</strong></p>
+                                <div class="mb-2" onclick="openReviews('${product.id}', '${product.name}')" style="cursor: pointer;">
+                                    ${stars} <small class="text-muted">(${count})</small>
+                                </div>
+                                <p class="mb-3">${statusText}</p>
+
+                                <form class="add-to-cart-form" data-id="${product.id}" data-name="${product.name}" data-price="${product.price}" data-stock="${stock}">
+                                    <label>Quantity:</label>
+                                    <input type="number" name="quantity" value="1" min="1" max="${maxQty}" class="form-control w-50 d-inline-block mb-2 quantity-input" ${disabledAttr}>
+                                    <button type="submit" class="cart-btn" ${disabledAttr} style="${isOutOfStock ? 'background-color: #ccc; cursor: not-allowed;' : ''}">
+                                        ${btnText}
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    `;
+                    container.insertAdjacentHTML('beforeend', html);
+                });
+
+                // Re-init Isotope for filtering if script was loaded before items
+                setupFilters();
+
+                // Add to Cart Listeners
+                document.querySelectorAll('.add-to-cart-form').forEach(form => {
+                    form.addEventListener('submit', (e) => {
+                        e.preventDefault();
+                        const id = form.dataset.id;
+                        const name = form.dataset.name;
+                        const price = parseFloat(form.dataset.price);
+                        const stock = parseInt(form.dataset.stock);
+                        const qty = parseInt(form.querySelector('.quantity-input').value);
+
+                        addToCart(id, name, price, qty, stock);
+                    });
+                });
+
+            } catch (error) {
+                console.error("Error loading products:", error);
+                container.innerHTML = `<div class="col-12 text-center text-danger">Error loading products. Check console.</div>`;
+            }
+        });
+
+        // Helper: Generate Star HTML
+        function getStars(rating) {
+            let output = '<span class="text-warning">';
+            for (let i = 1; i <= 5; i++) {
+                if (i <= Math.round(rating)) output += '★';
+                else output += '☆';
+            }
+            output += '</span>';
+            return output;
+        }
+
+        // Global: Open Reviews Modal
+        window.openReviews = async (productId, productName) => {
+            $('#reviewModal').modal('show');
+            document.getElementById('reviewModalLabel').innerText = `Reviews: ${productName}`;
+            document.getElementById('reviewProductId').value = productId;
+
+            const list = document.getElementById('reviewsList');
+            list.innerHTML = '<p>Loading reviews...</p>';
+
+            const reviews = await getReviews(productId);
+            list.innerHTML = '';
+
+            if (reviews.length === 0) {
+                list.innerHTML = '<p class="text-muted">No reviews yet. Be the first!</p>';
+            } else {
+                reviews.forEach(r => {
+                    const date = r.createdAt ? new Date(r.createdAt.seconds * 1000).toLocaleDateString() : '';
+                    const item = `
+                        <div class="border-bottom pb-2 mb-2">
+                            <strong>${r.userName || 'Anonymous'}</strong> <span class="text-warning">${getStars(r.rating)}</span> <small class="text-muted float-right">${date}</small>
+                            <p class="mb-0">${r.comment}</p>
+                        </div>
+                    `;
+                    list.insertAdjacentHTML('beforeend', item);
+                });
+            }
+        };
+
+        // Submit Review
+        document.getElementById('submitReviewBtn').addEventListener('click', async () => {
+            if (!currentUser) {
+                alert("Please login to submit a review.");
+                return;
+            }
+
+            const btn = document.getElementById('submitReviewBtn');
+            btn.disabled = true;
+            btn.innerText = "Submitting...";
+
+            const productId = document.getElementById('reviewProductId').value;
+            const rating = parseInt(document.getElementById('reviewRating').value);
+            const comment = document.getElementById('reviewComment').value;
+
+            try {
+                await addReview(currentUser.uid, productId, rating, comment, currentUser.displayName || 'User');
+                alert("Review added successfully!");
+                $('#reviewModal').modal('hide');
+                document.getElementById('reviewForm').reset();
+                location.reload(); // To update the product card stats
+            } catch (error) {
+                alert("Error: " + error);
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "Submit Review";
+            }
+        });
+
+
+        // Simple Filter Logic
+        function setupFilters() {
+            const buttons = document.querySelectorAll('.filter-btn');
+            const items = document.querySelectorAll('.product-item');
+
+            buttons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelector('.filter-btn.active').classList.remove('active');
+                    btn.classList.add('active');
+
+                    const filter = btn.dataset.filter;
+                    items.forEach(item => {
+                        if (filter === 'all' || item.classList.contains(filter)) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        }
+
+        function addToCart(id, name, price, quantity, maxStock) {
+            let cart = JSON.parse(localStorage.getItem('katze_cart')) || [];
+            const existing = cart.find(item => item.id === id);
+
+            let currentCartQty = existing ? existing.quantity : 0;
+
+            if (currentCartQty + quantity > maxStock) {
+                alert(`Sorry, you cannot add more than ${maxStock} items of "${name}". You have ${currentCartQty} in cart.`);
+                return;
+            }
+
+            if (existing) {
+                existing.quantity += quantity;
+            } else {
+                cart.push({ id, name, price, quantity });
+            }
+
+            localStorage.setItem('katze_cart', JSON.stringify(cart));
+            updateCartUI(); // From app.js
+            alert('Added to cart!');
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="loginpage.css">
+    <link rel="stylesheet" href="assets/css/animate.css">
+    <title>Login to Katze!</title>
+    <style>
+        .subcontainer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+        }
+
+        .subcontainer label {
+            display: flex;
+            align-items: center;
+            color: white;
+            /* Adjusted for better visibility on dark bg */
+            font-size: 14px;
+            gap: 8px;
+        }
+
+        .subcontainer input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        .subcontainer .forgotpsd a {
+            color: #e67e22;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .subcontainer .forgotpsd a:hover {
+            text-decoration: underline;
+        }
+
+        .forgotpsd a,
+        .register a,
+        .aboutus a {
+            color: #e67e22;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .forgotpsd a:hover,
+        .register a:hover,
+        .aboutus a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 12px;
+            display: block;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-container animate__animated animate__fadeInDown">
+        <h1>Login to Katze!</h1>
+
+        <form id="loginForm">
+            <div class="headingsContainer">
+                <h3>Sign in</h3>
+                <p>Sign in with your email and password</p>
+                <p id="globalError" class="error-message" style="text-align: center; font-size: 14px;"></p>
+            </div>
+
+            <div class="mainContainer">
+                <label for="email">Your Email</label>
+                <input type="text" id="email" placeholder="Enter Email" name="email" required>
+                <span id="emailError" class="error-message"></span>
+                <br>
+
+                <label for="password">Your Password</label>
+                <input type="password" id="password" placeholder="Enter Password" name="password" required>
+                <span id="passwordError" class="error-message"></span>
+
+                <div class="subcontainer">
+                    <label>
+                        <input type="checkbox" checked="checked" name="remember"> Remember me
+                    </label>
+                    <p class="forgotpsd"> <a href="#">Forgot Password?</a></p>
+                </div>
+
+                <button type="submit" id="loginBtn">Login</button>
+
+                <p class="register">Not a member? <a href="signup.html">Register here!</a></p>
+                <p class="register" style="margin-top: 10px;"><a href="index.html">Back to Home</a></p>
+
+                <br>
+                <div id="geo-location" style="color: white; font-size: 14px;"></div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Firebase Auth Logic -->
+    <script type="module">
+        import { loginUser, loginWithGoogle, resetPassword } from './js/auth.js';
+
+        // Geolocation (Keeping original logic simplified)
+        document.addEventListener("DOMContentLoaded", function () {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            }
+        });
+
+        function showPosition(position) {
+            // simplified for now, main app has full impl
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            document.getElementById("geo-location").innerText = `Lat: ${lat.toFixed(2)}, Lon: ${lon.toFixed(2)}`;
+        }
+
+        function showError(error) {
+            document.getElementById("geo-location").innerText = "Location disabled.";
+        }
+
+        // Login Handler
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const btn = document.getElementById('loginBtn');
+            const errorDisplay = document.getElementById('globalError');
+
+            btn.disabled = true;
+            btn.innerText = 'Logging in...';
+            errorDisplay.innerText = '';
+
+            try {
+                await loginUser(email, password);
+                window.location.href = 'index.html';
+            } catch (error) {
+                console.error(error);
+                errorDisplay.innerText = "Login failed: " + error.message;
+                btn.disabled = false;
+                btn.innerText = 'Login';
+            }
+        });
+
+        // Google Sign-In Handler
+        const googleBtn = document.createElement('button');
+        googleBtn.type = 'button'; // Prevent form submit
+        googleBtn.innerText = 'Sign in with Google';
+        googleBtn.style.marginTop = '10px';
+        googleBtn.style.backgroundColor = '#db4437';
+        googleBtn.style.color = 'white';
+        googleBtn.classList.add('google-btn'); // Add a class for styling if needed
+
+        // Insert after Login button
+        const loginBtn = document.getElementById('loginBtn');
+        loginBtn.parentNode.insertBefore(googleBtn, loginBtn.nextSibling);
+
+        googleBtn.addEventListener('click', async () => {
+            // Check for file protocol
+            if (window.location.protocol === 'file:') {
+                alert("Google Sign-In does not work when opening HTML files directly (file://). Please use a local server (e.g., VS Code Live Server, or `serve`).");
+                return;
+            }
+
+            try {
+                await loginWithGoogle();
+                window.location.href = 'index.html';
+            } catch (error) {
+                console.error("Google Sign-In Error:", error);
+                let msg = error.message;
+                if (error.code === 'auth/popup-closed-by-user') {
+                    msg = "Sign-in popup was closed before completion.";
+                } else if (error.code === 'auth/cancelled-popup-request') {
+                    msg = "Only one popup request is allowed at a time.";
+                } else if (error.code === 'auth/operation-not-allowed') {
+                    msg = "Google Sign-In is not enabled in Firebase Console.";
+                } else if (error.code === 'auth/unauthorized-domain') {
+                    msg = "This domain (or localhost) is not authorized in Firebase Console.";
+                }
+                document.getElementById('globalError').innerText = "Google Login Failed: " + msg;
+            }
+        });
+
+        // Forgot Password Handler
+        const forgotLink = document.querySelector('.forgotpsd a');
+        forgotLink.addEventListener('click', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            if (!email) {
+                alert("Please enter your email address in the field above to reset password.");
+                return;
+            }
+            if (confirm(`Send password reset email to ${email}?`)) {
+                try {
+                    await resetPassword(email);
+                    alert("Password reset email sent! Check your inbox.");
+                } catch (error) {
+                    alert("Error: " + error.message);
+                }
+            }
+        });
+    </script>
+
+</body>
+
+</html>

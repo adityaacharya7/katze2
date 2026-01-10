@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="loginpage.css">
+    <title>Sign Up - Katze</title>
+    <style>
+        .error {
+            color: red;
+            font-size: 12px;
+        }
+
+        .register a {
+            color: #e67e22;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .subcontainer {
+            margin: 10px 0;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-container">
+        <h1>Sign Up to Katze!</h1>
+
+        <form id="signupForm">
+            <div class="headingsContainer">
+                <h3>Create Your Account</h3>
+                <p>Enter your details below</p>
+                <p id="globalError" class="error" style="text-align: center; font-size: 14px;"></p>
+            </div>
+
+            <label for="email">Your Email</label>
+            <input type="text" id="email" placeholder="Enter Email" name="email" required>
+            <span id="emailError" class="error"></span>
+            <br><br>
+
+            <label for="username">Your Username</label>
+            <input type="text" id="username" placeholder="Enter Username" name="username" required>
+            <br>
+
+            <label for="password">Your Password</label>
+            <input type="password" id="password" placeholder="Enter Password" name="password" required>
+            <span id="passwordStrength" class="error"></span>
+            <br><br>
+
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" placeholder="Confirm Password" name="confirmPassword" required>
+            <span id="confirmPasswordError" class="error"></span>
+            <br><br>
+
+            <div class="subcontainer">
+                <label>
+                    <input type="checkbox" checked="checked" name="dontlogoff"> Stay Logged in
+                </label>
+            </div>
+
+            <button type="submit" id="signupBtn">Sign Up</button>
+
+            <p class="register">Already a member? <a href="login.html">Login here!</a></p>
+            <p class="register" style="margin-top: 10px;"><a href="index.html">Back to Home</a></p>
+
+            <div id="geo-location" style="color: white; font-size: 14px;"></div>
+        </form>
+    </div>
+
+    <script type="module">
+        import { registerUser, loginWithGoogle } from './js/auth.js';
+
+        // Real-time email validation
+        document.getElementById("email").addEventListener("input", function () {
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            document.getElementById("emailError").innerText = emailPattern.test(this.value) ? "" : "Invalid email format.";
+        });
+
+        // Password strength
+        document.getElementById("password").addEventListener("input", function () {
+            const val = this.value;
+            const msg = document.getElementById("passwordStrength");
+            if (val.length < 6) msg.innerText = "At least 6 chars"; // Firebase default
+            else msg.innerText = "";
+        });
+
+        // Confirm Password
+        document.getElementById("confirmPassword").addEventListener("input", function () {
+            const pwd = document.getElementById("password").value;
+            document.getElementById("confirmPasswordError").innerText = pwd !== this.value ? "Passwords do not match." : "";
+        });
+
+        // Submit Handler
+        document.getElementById("signupForm").addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+            const email = document.getElementById("email").value;
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirmPassword").value;
+            const errorDisplay = document.getElementById('globalError');
+            const btn = document.getElementById('signupBtn');
+
+            if (password !== confirmPassword) {
+                alert("Passwords do not match!");
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerText = "Creating Account...";
+            errorDisplay.innerText = "";
+
+            try {
+                await registerUser(email, password, username);
+                alert("Account created successfully! Please check your email for verification.");
+                window.location.href = 'index.html';
+            } catch (error) {
+                console.error(error);
+                errorDisplay.innerText = error.message;
+                btn.disabled = false;
+                btn.innerText = "Sign Up";
+            }
+        });
+
+        // Google Sign-In Handler (Reusing logic)
+        const googleBtn = document.createElement('button');
+        googleBtn.type = 'button';
+        googleBtn.innerText = 'Sign up with Google';
+        googleBtn.style.marginTop = '10px';
+        googleBtn.style.backgroundColor = '#db4437';
+        googleBtn.style.color = 'white';
+        googleBtn.classList.add('google-btn');
+
+        const signupBtn = document.getElementById('signupBtn');
+        signupBtn.parentNode.insertBefore(googleBtn, signupBtn.nextSibling);
+
+        googleBtn.addEventListener('click', async () => {
+            // Check for file protocol
+            if (window.location.protocol === 'file:') {
+                alert("Google Sign-In does not work when opening HTML files directly (file://). Please use a local server (e.g., VS Code Live Server, or `serve`).");
+                return;
+            }
+
+            try {
+                await loginWithGoogle();
+                window.location.href = 'index.html';
+            } catch (error) {
+                console.error("Google Sign-In Error:", error);
+                let msg = error.message;
+                if (error.code === 'auth/popup-closed-by-user') {
+                    msg = "Sign-in popup was closed before completion.";
+                } else if (error.code === 'auth/cancelled-popup-request') {
+                    msg = "Only one popup request is allowed at a time.";
+                } else if (error.code === 'auth/operation-not-allowed') {
+                    msg = "Google Sign-In is not enabled in Firebase Console.";
+                } else if (error.code === 'auth/unauthorized-domain') {
+                    msg = "This domain (or localhost) is not authorized in Firebase Console.";
+                }
+                document.getElementById('globalError').innerText = "Google Signup Failed: " + msg;
+            }
+        });
+
+    </script>
+</body>
+
+</html>

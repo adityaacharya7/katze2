@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My Orders - Katze</title>
+
+    <link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/all.min.css">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/owl.carousel.css">
+    <link rel="stylesheet" href="assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="assets/css/animate.css">
+    <link rel="stylesheet" href="assets/css/meanmenu.min.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .order-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: #fff;
+            transition: 0.3s;
+        }
+
+        .order-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #f0f0f0;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .status-pending {
+            background-color: #f39c12;
+        }
+
+        .status-shipped {
+            background-color: #3498db;
+        }
+
+        .status-delivered {
+            background-color: #2ecc71;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!--PreLoader-->
+    <div class="loader">
+        <div class="loader-inner">
+            <div class="circle"></div>
+        </div>
+    </div>
+
+    <div class="top-header-area" id="sticker">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-sm-12 text-center">
+                    <div class="main-menu-wrap">
+                        <div class="site-logo">
+                            <a href="index.html">
+                                <img src="assets/img/logo.png" alt="">
+                            </a>
+                        </div>
+                        <nav class="main-menu">
+                            <ul>
+                                <li><a href="index.html">Home</a></li>
+                                <li><a href="about.html">About</a></li>
+                                <li><a href="shop.html">Shop</a></li>
+                                <li><a href="adoption.html">Adoption</a></li>
+                                <li><a href="contact.html">Contact</a></li>
+                                <li>
+                                    <div class="header-icons" style="display: flex; align-items: center; gap: 15px;">
+                                        <div id="auth-section"><a href="login.html">Login</a></div>
+                                        <a class="shopping-cart" href="cart.html">
+                                            <i class="fas fa-shopping-cart"></i>
+                                            <span id="cart-count" class="badge badge-danger"
+                                                style="display: none;">0</span>
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </nav>
+                        <div class="mobile-menu"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="breadcrumb-section breadcrumb-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 text-center">
+                    <div class="breadcrumb-text">
+                        <p>Track your purchases</p>
+                        <h1>My Orders</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-150 mb-150">
+        <div id="orders-container">
+            <p class="text-center">Loading orders...</p>
+        </div>
+    </div>
+
+    <div class="copyright">
+        <div class="container">
+            <p>Copyrights &copy; 2025 - <a href="#">Katze</a>, All Rights Reserved.</p>
+        </div>
+    </div>
+
+    <script src="assets/js/jquery-1.11.3.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/main.js"></script>
+
+    <!-- App Logic (for auth check & navbar) -->
+    <script type="module" src="js/app.js"></script>
+
+    <!-- Orders Logic -->
+    <script type="module">
+        import { auth } from './js/firebase-config.js';
+        import { getUserOrders, cancelOrder } from './js/db.js';
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        // App.js handles the redirect if not logged in
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                loadOrders(user.uid);
+            }
+        });
+
+        async function loadOrders(userId) {
+            const container = document.getElementById('orders-container');
+            try {
+                const orders = await getUserOrders(userId);
+
+                if (orders.length === 0) {
+                    container.innerHTML = '<div class="text-center"><h3>No orders found.</h3><a href="shop.html" class="boxed-btn mt-3">Start Shopping</a></div>';
+                    return;
+                }
+
+                container.innerHTML = '';
+                orders.forEach(order => {
+                    const date = order.createdAt ? new Date(order.createdAt.seconds * 1000).toLocaleDateString() : 'Just now';
+                    const statusClass = `status-${(order.status || 'pending').toLowerCase()}`;
+                    const isPending = (order.status || 'pending') === 'pending';
+
+                    let itemsHtml = '';
+                    order.items.forEach(item => {
+                        itemsHtml += `<li>${item.name} x ${item.quantity} - ₹${(item.price * item.quantity).toFixed(2)}</li>`;
+                    });
+
+                    const cancelBtn = isPending ?
+                        `<button class="boxed-btn" style="padding: 5px 15px; font-size: 14px; background-color: #e74c3c; border-color: #e74c3c;" onclick="handleCancel('${order.id}')">Cancel Order</button>`
+                        : '';
+
+                    const html = `
+                        <div class="order-card">
+                            <div class="order-header">
+                                <div>
+                                    <strong>Order ID:</strong> ${order.id} <br>
+                                    <small class="text-muted">Placed on: ${date}</small>
+                                </div>
+                                <div class="text-end text-right">
+                                    <span class="status-badge ${statusClass}">${order.status || 'Pending'}</span> <br>
+                                    <strong>Total: ₹${order.totalAmount.toFixed(2)}</strong>
+                                </div>
+                            </div>
+                            <div>
+                                <h6>Items:</h6>
+                                <ul>${itemsHtml}</ul>
+                                <p><strong>Shipping to:</strong> ${order.address}</p>
+                            </div>
+                            <div class="text-right mt-2">
+                                ${cancelBtn}
+                            </div>
+                        </div>
+                    `;
+                    container.insertAdjacentHTML('beforeend', html);
+                });
+
+                // Attach global handler
+                window.handleCancel = async (orderId) => {
+                    if (confirm("Are you sure you want to cancel this order?")) {
+                        try {
+                            await cancelOrder(orderId);
+                            alert("Order cancelled successfully.");
+                            loadOrders(userId); // Reload
+                        } catch (error) {
+                            alert("Failed to cancel order: " + error);
+                        }
+                    }
+                };
+
+            } catch (error) {
+                console.error(error);
+                container.innerHTML = '<p class="text-center text-danger">Failed to load orders.</p>';
+            }
+        }
+    </script>
+</body>
+
+</html>

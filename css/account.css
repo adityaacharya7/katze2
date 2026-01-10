@@ -1,0 +1,265 @@
+/* Account Page Styles */
+
+.account-section {
+    min-height: 600px;
+}
+
+/* Sidebar */
+.account-sidebar {
+    background: #fff;
+    border: 1px solid #eee;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.user-brief {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.user-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #F28123;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.user-names h4 {
+    margin: 0;
+    font-size: 18px;
+    color: #051922;
+}
+
+.user-names p {
+    margin: 0;
+    font-size: 13px;
+    color: #888;
+}
+
+.account-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.account-nav li {
+    padding: 12px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s;
+    font-weight: 500;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.account-nav li i {
+    margin-right: 10px;
+    width: 20px;
+    text-align: center;
+}
+
+.account-nav li:hover,
+.account-nav li.active {
+    background-color: #F28123;
+    color: white;
+}
+
+/* Tab Content */
+.account-tab-content {
+    display: none;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+.account-tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.account-tab-content h3 {
+    margin-bottom: 25px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+    color: #051922;
+}
+
+/* Dashboard Cards */
+.dashboard-card {
+    background: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid #eee;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.03);
+    margin-bottom: 20px;
+}
+
+.dashboard-card i {
+    font-size: 40px;
+    color: #F28123;
+    margin-bottom: 15px;
+}
+
+.dashboard-card h5 {
+    font-size: 16px;
+    color: #888;
+    margin-bottom: 5px;
+}
+
+.dashboard-card .count {
+    font-size: 28px;
+    font-weight: 700;
+    color: #051922;
+}
+
+/* Switches & Links */
+.switch-tab {
+    color: #F28123;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.switch-tab:hover {
+    color: #051922;
+    text-decoration: underline;
+}
+
+/* Tables */
+.account-table {
+    border: 1px solid #eee;
+}
+
+.account-table thead th {
+    background-color: #f9f9f9;
+    color: #051922;
+    font-weight: 600;
+    border-bottom: 2px solid #eee;
+}
+
+.badge-warning {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.badge-success {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.badge-secondary {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+/* Address Box */
+.address-box {
+    border: 1px solid #eee;
+    padding: 20px;
+    border-radius: 5px;
+    background: #fff;
+    margin-bottom: 20px;
+    position: relative;
+    transition: 0.3s;
+}
+
+.address-box:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    border-color: #F28123;
+}
+
+.address-box h5 {
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.address-box p {
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #555;
+    line-height: 1.6;
+}
+
+.address-actions {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.edit-btn,
+.delete-btn {
+    font-size: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    margin-right: 15px;
+}
+
+.edit-btn {
+    color: #555;
+}
+
+.edit-btn:hover {
+    color: #F28123;
+}
+
+.delete-btn {
+    color: #dc3545;
+}
+
+.delete-btn:hover {
+    text-decoration: underline;
+}
+
+/* Settings */
+.settings-box {
+    margin-bottom: 40px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #eee;
+}
+
+.settings-box:last-child {
+    border-bottom: none;
+}
+
+.settings-box h4 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #051922;
+}
+
+.form-group label {
+    font-weight: 500;
+    font-size: 14px;
+    color: #555;
+}
+
+.form-control {
+    height: 45px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.form-control:focus {
+    border-color: #F28123;
+    box-shadow: none;
+}
