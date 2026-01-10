@@ -167,16 +167,28 @@
     <script src="assets/js/main.js"></script>
 
     <script type="module" src="js/app.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
+    <script type="module" src="js/app.js"></script>
+    <script type="module">
+        import { CartService } from './js/cart-service.js';
+        import { updateCartUI } from './js/app.js';
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { auth } from './js/firebase-config.js';
+
+        // Wait for auth to be ready before rendering? Or render immediately (will default to guest if auth not ready yet).
+        // Better to wait for onAuthStateChanged to ensure we get user's cart if logged in.
+        onAuthStateChanged(auth, (user) => {
             renderCart();
         });
 
-        function renderCart() {
-            const cartItems = JSON.parse(localStorage.getItem('katze_cart')) || [];
+        async function renderCart() {
             const tbody = document.getElementById('cart-body');
             const summary = document.getElementById('cart-summary');
             const emptyMsg = document.getElementById('empty-cart-msg');
+
+            // Show loading state?
+            tbody.innerHTML = '<tr><td colspan="6" class="text-center">Loading cart...</td></tr>';
+
+            const cartItems = await CartService.getCart();
 
             tbody.innerHTML = '';
 
@@ -199,10 +211,13 @@
                 subtotal += itemTotal;
                 shipping += itemShipping;
 
+                // Note: remove uses ID now, or we can pass ID.
+                // CartService.removeFromCart supports ID or Index (if guest).
+                // Ideally we use ID consistently.
                 const row = `
                     <tr>
                         <td>
-                            <button class="btn btn-danger btn-sm" onclick="removeItem(${index})"><i class="fas fa-times"></i></button>
+                            <button class="btn btn-danger btn-sm" onclick="removeCartItem('${item.id}', ${index})"><i class="fas fa-times"></i></button>
                         </td>
                         <td><img src="assets/img/products/product-img-1.jpg" alt="${item.name}" width="80"></td>
                         <td>${item.name}</td>
@@ -219,16 +234,11 @@
             document.getElementById('total-price').innerText = `₹${(subtotal + shipping).toFixed(2)}`;
         }
 
-        window.removeItem = function (index) {
-            let cart = JSON.parse(localStorage.getItem('katze_cart')) || [];
-            cart.splice(index, 1);
-            localStorage.setItem('katze_cart', JSON.stringify(cart));
+        // Make globally available for onclick
+        window.removeCartItem = async function (id, index) {
+            await CartService.removeFromCart(id, index);
             renderCart();
-            // Update app.js counter? We need to trigger it or reload but app.js runs on load.
-            // Dispatch custom event or just manual update if helper was global.
-            // Since app.js is module, we can't easily access it unless we attached to window.
-            // Easy fix: reload page for now or dispatch storage event
-            window.location.reload();
+            updateCartUI(); // Update header badge
         }
     </script>
 </body>

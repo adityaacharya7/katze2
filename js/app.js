@@ -1,5 +1,6 @@
 import { auth } from './firebase-config.js';
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { CartService } from './cart-service.js';
 
 // DOM Elements
 const authSection = document.getElementById('auth-section');
@@ -77,19 +78,7 @@ onAuthStateChanged(auth, (user) => {
 });
 
 // Update Cart Count (Local Storage)
-function updateCartUI() {
-    const cart = JSON.parse(localStorage.getItem('katze_cart')) || [];
-    const count = cart.reduce((acc, item) => acc + item.quantity, 0);
 
-    if (cartCount) {
-        if (count > 0) {
-            cartCount.textContent = count;
-            cartCount.style.display = 'inline-block';
-        } else {
-            cartCount.style.display = 'none';
-        }
-    }
-}
 
 // Geolocation
 function initGeolocation() {

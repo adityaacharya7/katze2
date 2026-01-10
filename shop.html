@@ -283,6 +283,7 @@
         import { fetchProducts, seedProducts, addReview, getReviews } from './js/db.js';
         import { updateCartUI } from './js/app.js';
         import { auth } from './js/firebase-config.js';
+        import { CartService } from './js/cart-service.js';
         import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
         let currentUser = null;
@@ -363,7 +364,8 @@
                         const stock = parseInt(form.dataset.stock);
                         const qty = parseInt(form.querySelector('.quantity-input').value);
 
-                        addToCart(id, name, price, qty, stock);
+                        const btn = form.querySelector('button');
+                        addToCart(btn, id, name, price, qty, stock);
                     });
                 });
 
@@ -464,26 +466,26 @@
             });
         }
 
-        function addToCart(id, name, price, quantity, maxStock) {
-            let cart = JSON.parse(localStorage.getItem('katze_cart')) || [];
-            const existing = cart.find(item => item.id === id);
 
-            let currentCartQty = existing ? existing.quantity : 0;
+        async function addToCart(btn, id, name, price, quantity, maxStock) {
+            const originalText = btn.innerText;
+            btn.innerText = "Adding...";
+            btn.disabled = true;
 
-            if (currentCartQty + quantity > maxStock) {
-                alert(`Sorry, you cannot add more than ${maxStock} items of "${name}". You have ${currentCartQty} in cart.`);
-                return;
+            const product = { id, name, price, quantity, maxStock };
+
+            try {
+                await CartService.addToCart(product);
+                // Update UI count
+                updateCartUI();
+                alert(`${name} added to cart!`);
+            } catch (error) {
+                console.error(error);
+                alert("Failed to add to cart.");
+            } finally {
+                btn.innerText = originalText;
+                btn.disabled = false;
             }
-
-            if (existing) {
-                existing.quantity += quantity;
-            } else {
-                cart.push({ id, name, price, quantity });
-            }
-
-            localStorage.setItem('katze_cart', JSON.stringify(cart));
-            updateCartUI(); // From app.js
-            alert('Added to cart!');
         }
     </script>
 </body>
