@@ -5,115 +5,161 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="loginpage.css">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="assets/css/all.min.css">
+    <!-- Custom Design System -->
+    <link rel="stylesheet" href="css/design-system.css">
     <link rel="stylesheet" href="assets/css/animate.css">
     <title>Login to Katze!</title>
     <style>
-        .subcontainer {
+        body {
+            overflow: hidden;
+            /* Prevent scroll on full screen split */
+        }
+
+        .auth-split-screen {
+            height: 100vh;
+            width: 100%;
+        }
+
+        .auth-image-side {
+            background: url('assets/img/hero-bg.jpg') center center/cover no-repeat;
+            /* Fallback */
+            background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+            position: relative;
+        }
+
+        .auth-image-side::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('assets/img/products/product-img-1.jpg') center/cover;
+            /* Using a product image if hero not avail, or just gradient */
+            opacity: 0.1;
+        }
+
+        .auth-form-side {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin: 10px 0;
+            justify-content: center;
+            padding: 40px;
+            background: var(--color-bg);
+            overflow-y: auto;
         }
 
-        .subcontainer label {
+        .auth-card {
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .google-btn-custom {
             display: flex;
             align-items: center;
-            color: white;
-            /* Adjusted for better visibility on dark bg */
-            font-size: 14px;
-            gap: 8px;
+            justify-content: center;
+            gap: 10px;
+            background: white !important;
+            color: #333 !important;
+            border: 1px solid #ddd !important;
+            box-shadow: var(--shadow-sm);
+            width: 100%;
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: var(--border-radius-pill);
+            transition: all 0.3s;
         }
 
-        .subcontainer input[type="checkbox"] {
-            width: 16px;
-            height: 16px;
-            cursor: pointer;
-        }
-
-        .subcontainer .forgotpsd a {
-            color: #e67e22;
-            font-weight: 600;
-            text-decoration: none;
-        }
-
-        .subcontainer .forgotpsd a:hover {
-            text-decoration: underline;
-        }
-
-        .forgotpsd a,
-        .register a,
-        .aboutus a {
-            color: #e67e22;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .forgotpsd a:hover,
-        .register a:hover,
-        .aboutus a:hover {
-            color: white;
-            text-decoration: underline;
-        }
-
-        .error-message {
-            color: red;
-            font-size: 12px;
-            display: block;
-            margin-top: 5px;
+        .google-btn-custom:hover {
+            background: #f1f1f1 !important;
+            box-shadow: var(--shadow-md);
         }
     </style>
 </head>
 
 <body>
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
 
-    <div class="login-wrapper animate__animated animate__fadeIn">
-        <!-- Left Side: Form -->
-        <div class="left-panel">
-            <h1>Welcome Back</h1>
-            <p>Welcome back! Please enter your details.</p>
-
-            <form id="loginForm">
-                <p id="globalError" class="error-message" style="text-align: center;"></p>
-
-                <label for="email">Email</label>
-                <input type="text" id="email" placeholder="Enter your email" name="email" required>
-                <span id="emailError" class="error-message"></span>
-
-                <label for="password">Password</label>
-                <input type="password" id="password" placeholder="**********" name="password" required>
-                <span id="passwordError" class="error-message"></span>
-
-                <div class="subcontainer">
-                    <label>
-                        <input type="checkbox" checked="checked" name="remember"> Remember me
-                    </label>
-                    <a href="#">Forgot password?</a>
+    <div class="container-fluid p-0 auth-split-screen">
+        <div class="row g-0 h-100">
+            <!-- Left Side: Image/Brand -->
+            <div
+                class="col-lg-6 d-none d-lg-flex auth-image-side align-items-center justify-content-center text-white text-center p-5">
+                <div class="position-relative animate__animated animate__fadeInLeft" style="z-index: 2;">
+                    <h1 class="display-3 fw-bold" style="font-family: 'Fredoka', sans-serif;">Welcome Back!</h1>
+                    <p class="lead mt-3">We missed you! Sign in to continue your pet care journey.</p>
                 </div>
+            </div>
 
-                <button type="submit" id="loginBtn">Sign in</button>
+            <!-- Right Side: Form -->
+            <div class="col-lg-6 auth-form-side">
+                <div class="auth-card animate__animated animate__fadeInRight">
+                    <div class="text-center mb-4">
+                        <a href="index.html" class="d-inline-flex align-items-center text-decoration-none mb-4">
+                            <img src="assets/img/logo.png" alt="Katze Logo" style="height: 40px; margin-right: 10px;">
+                            <span
+                                style="font-family: 'Fredoka', sans-serif; font-size: 24px; font-weight: 700; color: var(--color-primary-dark);">Katze</span>
+                        </a>
+                        <h2 class="fw-bold text-dark">Sign In</h2>
+                        <p class="text-muted">Please enter your details.</p>
+                    </div>
 
-                <!-- Google Button will be inserted here by JS, need to style it via CSS targeting -->
+                    <form id="loginForm">
+                        <p id="globalError" class="text-danger small text-center"></p>
 
-                <p class="register">Don't have an account? <a href="signup.html">Sign up for free!</a></p>
-                <p class="register" style="margin-top: 5px;"><a href="index.html">Back to Home</a></p>
+                        <div class="mb-3">
+                            <label for="email" class="form-label fw-bold small text-muted">Email</label>
+                            <input type="text" id="email" class="input-modern" placeholder="Enter your email"
+                                name="email" required>
+                            <span id="emailError" class="text-danger small"></span>
+                        </div>
 
-                <div id="geo-location" style="color: #999; font-size: 12px; margin-top: 20px; text-align: center;">
+                        <div class="mb-3">
+                            <label for="password" class="form-label fw-bold small text-muted">Password</label>
+                            <input type="password" id="password" class="input-modern" placeholder="**********"
+                                name="password" required>
+                            <span id="passwordError" class="text-danger small"></span>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mb-4 small">
+                            <label class="d-flex align-items-center gap-2">
+                                <input type="checkbox" checked="checked" name="remember" class="form-check-input mt-0">
+                                <span class="text-muted">Remember me</span>
+                            </label>
+                            <a href="#" class="text-primary fw-bold text-decoration-none forgotpsd-link">Forgot
+                                password?</a>
+                        </div>
+
+                        <button type="submit" id="loginBtn" class="btn-primary-modern w-100 justify-content-center">Sign
+                            in</button>
+
+                        <!-- Google button container (JS will insert here or we provide a target) -->
+                        <div id="google-btn-container"></div>
+
+                        <p class="text-center mt-4 text-muted small">
+                            Don't have an account? <a href="signup.html"
+                                class="text-primary fw-bold text-decoration-none">Sign up for free!</a>
+                        </p>
+                        <p class="text-center mt-2 small">
+                            <a href="index.html" class="text-muted text-decoration-none"><i
+                                    class="fas fa-arrow-left me-1"></i> Back to Home</a>
+                        </p>
+
+                        <div id="geo-location"
+                            style="color: #999; font-size: 12px; margin-top: 20px; text-align: center;"></div>
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
-
-        <!-- Right Side: Image -->
-        <div class="right-panel"></div>
     </div>
 
     <!-- Firebase Auth Logic -->
     <script type="module">
         import { loginUser, loginWithGoogle, resetPassword } from './js/auth.js';
 
-        // Geolocation (Keeping original logic simplified)
+        // Geolocation
         document.addEventListener("DOMContentLoaded", function () {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(showPosition, showError);
@@ -121,14 +167,13 @@
         });
 
         function showPosition(position) {
-            // simplified for now, main app has full impl
             const lat = position.coords.latitude;
             const lon = position.coords.longitude;
             document.getElementById("geo-location").innerText = `Lat: ${lat.toFixed(2)}, Lon: ${lon.toFixed(2)}`;
         }
 
         function showError(error) {
-            document.getElementById("geo-location").innerText = "Location disabled.";
+            // document.getElementById("geo-location").innerText = "Location disabled.";
         }
 
         // Login Handler
@@ -140,7 +185,7 @@
             const errorDisplay = document.getElementById('globalError');
 
             btn.disabled = true;
-            btn.innerText = 'Logging in...';
+            btn.innerHTML = 'Logging in... <span class="spinner-border spinner-border-sm ms-2"></span>';
             errorDisplay.innerText = '';
 
             try {
@@ -150,27 +195,21 @@
                 console.error(error);
                 errorDisplay.innerText = "Login failed: " + error.message;
                 btn.disabled = false;
-                btn.innerText = 'Login';
+                btn.innerText = 'Sign in';
             }
         });
 
         // Google Sign-In Handler
         const googleBtn = document.createElement('button');
-        googleBtn.type = 'button'; // Prevent form submit
-        googleBtn.innerText = 'Sign in with Google';
-        googleBtn.style.marginTop = '10px';
-        googleBtn.style.backgroundColor = '#db4437';
-        googleBtn.style.color = 'white';
-        googleBtn.classList.add('google-btn'); // Add a class for styling if needed
+        googleBtn.type = 'button';
+        googleBtn.innerHTML = '<img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="18" height="18"> Sign in with Google';
+        googleBtn.className = 'google-btn-custom';
 
-        // Insert after Login button
-        const loginBtn = document.getElementById('loginBtn');
-        loginBtn.parentNode.insertBefore(googleBtn, loginBtn.nextSibling);
+        document.getElementById('google-btn-container').appendChild(googleBtn);
 
         googleBtn.addEventListener('click', async () => {
-            // Check for file protocol
             if (window.location.protocol === 'file:') {
-                alert("Google Sign-In does not work when opening HTML files directly (file://). Please use a local server (e.g., VS Code Live Server, or `serve`).");
+                alert("Google Sign-In does not work when opening HTML files directly (file://). Please use a local server.");
                 return;
             }
 
@@ -180,21 +219,14 @@
             } catch (error) {
                 console.error("Google Sign-In Error:", error);
                 let msg = error.message;
-                if (error.code === 'auth/popup-closed-by-user') {
-                    msg = "Sign-in popup was closed before completion.";
-                } else if (error.code === 'auth/cancelled-popup-request') {
-                    msg = "Only one popup request is allowed at a time.";
-                } else if (error.code === 'auth/operation-not-allowed') {
-                    msg = "Google Sign-In is not enabled in Firebase Console.";
-                } else if (error.code === 'auth/unauthorized-domain') {
-                    msg = "This domain (or localhost) is not authorized in Firebase Console.";
-                }
+                if (error.code === 'auth/popup-closed-by-user') msg = "Sign-in popup was closed.";
+                else if (error.code === 'auth/operation-not-allowed') msg = "Google Sign-In disabled in Console.";
                 document.getElementById('globalError').innerText = "Google Login Failed: " + msg;
             }
         });
 
         // Forgot Password Handler
-        const forgotLink = document.querySelector('.forgotpsd a');
+        const forgotLink = document.querySelector('.forgotpsd-link');
         forgotLink.addEventListener('click', async (e) => {
             e.preventDefault();
             const email = document.getElementById('email').value;
@@ -212,7 +244,6 @@
             }
         });
     </script>
-
 </body>
 
 </html>
