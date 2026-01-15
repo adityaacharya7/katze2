@@ -2,523 +2,921 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description"
-		content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Pet-First Wellness</title>
+	<script src="https://cdn.tailwindcss.com"></script>
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+		rel="stylesheet">
+	<script src="https://unpkg.com/lucide@latest"></script>
+	<script>
+		tailwind.config = {
+			theme: {
+				extend: {
+					fontFamily: {
+						sans: ['Poppins', 'sans-serif'],
+					},
+					colors: {
+						'pet-cream': '#FDFBF7',
+						'pet-orange': '#F26F21',
+						'pet-yellow': '#FFD028',
+						'pet-teal': '#1D8E8A',
+						'pet-dark': '#103E48',
+						'pet-footer': '#062C30',
+					},
+					animation: {
+						'spin-slow': 'spin 10s linear infinite',
+						'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+					}
+				}
+			}
+		}
+	</script>
+	<style>
+		/* Custom utility for hiding scrollbar but allowing scroll */
+		.no-scrollbar::-webkit-scrollbar {
+			display: none;
+		}
 
-	<!-- title -->
-	<title>Katze</title>
+		.no-scrollbar {
+			-ms-overflow-style: none;
+			scrollbar-width: none;
+		}
 
-	<!-- favicon -->
-	<link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
-	<!-- google font -->
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
-	<!-- fontawesome -->
-	<link rel="stylesheet" href="assets/css/all.min.css">
-	<!-- bootstrap -->
-	<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-	<!-- owl carousel -->
-	<link rel="stylesheet" href="assets/css/owl.carousel.css">
-	<!-- magnific popup -->
-	<link rel="stylesheet" href="assets/css/magnific-popup.css">
-	<!-- animate css -->
-	<link rel="stylesheet" href="assets/css/animate.css">
-	<!-- mean menu css -->
-	<link rel="stylesheet" href="assets/css/meanmenu.min.css">
-	<!-- main style -->
-	<link rel="stylesheet" href="assets/css/main.css">
-	<!-- responsive -->
-	<link rel="stylesheet" href="assets/css/responsive.css">
-	<!-- AOS Animation Library -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+		/* Scalloped edge utility */
+		.scalloped-bottom {
+			--s: 20px;
+			/* control the size */
+			--c: #FDFBF7;
+			/* the color */
 
+			background: var(--c);
+			--_g: #0000 75%, var(--c) 0;
+			mask:
+				radial-gradient(var(--s) at 50% var(--s), var(--_g)) 0 calc(100% - var(--s))/calc(2*var(--s)) 100%,
+				radial-gradient(var(--s) at 50% calc(100% + var(--s)), var(--_g)) calc(var(--s)) 100%/calc(2*var(--s)) 100%;
+			-webkit-mask:
+				radial-gradient(var(--s) at 50% var(--s), #0000 75%, #000 0) 0 calc(100% - var(--s))/calc(2*var(--s)) 100%,
+				radial-gradient(var(--s) at 50% calc(100% + var(--s)), #0000 75%, #000 0) calc(var(--s)) 100%/calc(2*var(--s)) 100%;
+		}
+	</style>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(getLocationDetails, showError);
+			} else {
+				document.getElementById("geo-location").innerHTML = "Geolocation is not supported by this browser.";
+			}
+		});
+
+		function getLocationDetails(position) {
+			let lat = position.coords.latitude;
+			let lon = position.coords.longitude;
+			let apiKey = "4c3bb5b8070f4edcbff5925655f12d0e"; // Replace with your OpenCage API key
+			let apiUrl = `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lon}&key=${apiKey}`;
+
+			fetch(apiUrl)
+				.then(response => response.json())
+				.then(data => {
+					if (data.results.length > 0) {
+						let locationName = data.results[0].components.city || data.results[0].components.town || data.results[0].components.village;
+						let country = data.results[0].components.country;
+						document.getElementById("user-location").innerHTML = `📍 ${locationName}, ${country}`;
+					} else {
+						document.getElementById("user-location").innerHTML = "Location not found.";
+					}
+				})
+				.catch(error => {
+					console.error("Error fetching location data:", error);
+					document.getElementById("user-location").innerHTML = "Unable to retrieve location.";
+				});
+		}
+
+		function showError(error) {
+			switch (error.code) {
+				case error.PERMISSION_DENIED:
+					document.getElementById("user-location").innerHTML = "User denied location access.";
+					break;
+				case error.POSITION_UNAVAILABLE:
+					document.getElementById("user-location").innerHTML = "Location information is unavailable.";
+					break;
+				case error.TIMEOUT:
+					document.getElementById("user-location").innerHTML = "The request to get user location timed out.";
+					break;
+				case error.UNKNOWN_ERROR:
+					document.getElementById("user-location").innerHTML = "An unknown error occurred.";
+					break;
+			}
+		}
+	</script>
+	<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0"
+  }
+}
+</script>
 </head>
 
-<body>
+<body class="bg-pet-cream text-gray-800 antialiased overflow-x-hidden font-sans">
 
-	<!--PreLoader-->
-	<div class="loader">
-		<div class="loader-inner">
-			<div class="circle"></div>
+	<!-- Header -->
+	<header class="w-full py-6 px-6 md:px-12 flex items-center justify-between bg-pet-cream relative z-50">
+		<div class="flex items-center gap-2">
+			<div class="text-2xl font-bold text-pet-dark tracking-tight">
+				<a href="index.html">
+					<img src="assets/img/logo.png" alt="Katze" style="height: 50px;">
+				</a>
+			</div>
 		</div>
-	</div>
-	<!--PreLoader Ends-->
 
-	<!-- header -->
-	<div class="top-header-area" id="sticker">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12 col-sm-12 text-center">
-					<div class="main-menu-wrap">
-						<!-- logo -->
-						<div class="site-logo">
-							<a href="index.html">
-								<img src="assets/img/logo.png" alt="">
-							</a>
+		<!-- Desktop Nav -->
+		<nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-600">
+			<a href="index.html" class="hover:text-pet-orange transition-colors">Home</a>
+			<a href="about.html" class="hover:text-pet-orange transition-colors">About</a>
+			<a href="news.html" class="hover:text-pet-orange transition-colors">News</a>
+			<a href="contact.html" class="hover:text-pet-orange transition-colors">Contact</a>
+			<a href="adoption.html" class="hover:text-pet-orange transition-colors">Adoption</a>
+			<a href="shop.html" class="hover:text-pet-orange transition-colors">Shop</a>
+		</nav>
+
+		<div class="hidden md:flex items-center gap-4">
+			<a href="cart.html" class="text-pet-dark hover:text-pet-orange transition-colors relative">
+				<i data-lucide="shopping-cart" width="20"></i>
+				<!-- Optional Badge placeholder -->
+				<!-- <span class="absolute -top-1 -right-1 bg-pet-orange text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full">0</span> -->
+			</a>
+
+			<div id="auth-actions" class="flex items-center gap-4">
+				<a href="signup.html"
+					class="bg-pet-dark text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-opacity-90 transition-all shadow-lg hover:shadow-xl">
+					Sign up
+				</a>
+				<a href="login.html" class="text-pet-dark font-medium hover:text-pet-orange transition-colors text-sm">
+					Login
+				</a>
+			</div>
+		</div>
+
+		<!-- Mobile Menu Toggle -->
+		<button id="mobile-toggle" class="md:hidden text-pet-dark">
+			<i data-lucide="menu" id="icon-menu"></i>
+			<i data-lucide="x" id="icon-close" class="hidden"></i>
+		</button>
+
+		<!-- Mobile Nav -->
+		<div id="mobile-menu"
+			class="hidden absolute top-full left-0 w-full bg-pet-cream p-6 shadow-xl flex flex-col space-y-4 md:hidden border-t border-gray-100 z-50">
+			<a href="index.html" class="text-pet-orange font-medium">Home</a>
+			<a href="about.html" class="text-gray-600">About</a>
+			<a href="news.html" class="text-gray-600">News</a>
+			<a href="contact.html" class="text-gray-600">Contact</a>
+			<a href="adoption.html" class="text-gray-600">Adoption</a>
+			<a href="shop.html" class="text-gray-600">Shop</a>
+			<a href="cart.html" class="text-gray-600">Cart</a>
+			<a href="signup.html" class="bg-pet-dark text-white px-6 py-3 rounded-full w-full text-center">Sign up</a>
+			<a href="login.html" class="text-pet-dark w-full text-center py-2">Login</a>
+		</div>
+	</header>
+
+	<main class="flex-grow">
+		<!-- Hero -->
+		<section class="relative w-full pt-8 pb-20 px-6 md:px-12 bg-pet-cream overflow-hidden">
+			<div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
+				<!-- Left Content -->
+				<div class="relative z-10 space-y-6">
+					<div class="flex items-center gap-2 text-pet-teal font-medium">
+						<span class="inline-block transform -rotate-12">
+							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+								stroke-width="2">
+								<path d="M12 2L15 9L22 9L16 14L18 21L12 17L6 21L8 14L2 9L9 9L12 2Z"
+									class="text-pet-orange fill-pet-orange" stroke="none" />
+							</svg>
+						</span>
+						<span class="border-b border-pet-teal border-dashed pb-0.5">Available in select states</span>
+					</div>
+
+					<h1 class="text-5xl md:text-7xl font-bold text-pet-dark leading-[1.1]">
+						Adoption and <br />
+						<span class="text-pet-orange inline-block relative">
+							Medical Care
+							<!-- Decorative dash lines around text -->
+							<svg class="absolute -right-12 -top-8 w-12 h-12 text-pet-orange" viewBox="0 0 50 50"
+								fill="none">
+								<path d="M10 40 L30 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+								<path d="M25 45 L45 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+							</svg>
+						</span>
+					</h1>
+
+					<p class="text-gray-500 max-w-md text-lg">
+						Best care for your lovely pets!! Providing comprehensive care plans tailored for your furry
+						friends.
+					</p>
+
+					<a href="adoption.html"
+						class="inline-block bg-pet-orange text-white px-8 py-3.5 rounded-full font-medium hover:bg-orange-600 transition-colors shadow-lg shadow-orange-200">
+						Pet Collection
+					</a>
+				</div>
+
+				<!-- Right Image Composition -->
+				<div class="relative">
+					<!-- Background Abstract Shapes -->
+					<div
+						class="absolute top-10 right-0 w-full h-[110%] bg-pet-dark rounded-t-[40px] rounded-br-[100px] rounded-bl-[40px] z-0 transform translate-x-12 translate-y-4">
+					</div>
+
+					<!-- Yellow Scribble -->
+					<div class="absolute -top-12 -right-12 w-64 h-64 z-10 opacity-80 pointer-events-none">
+						<svg viewBox="0 0 200 200" class="w-full h-full text-pet-yellow animate-pulse-slow">
+							<path d="M20,100 C20,60 80,60 80,100 C80,140 140,140 140,100 C140,60 200,60 200,100"
+								fill="none" stroke="currentColor" stroke-width="4" stroke-dasharray="10 5" />
+							<circle cx="150" cy="50" r="40" stroke="currentColor" stroke-width="2" fill="none" />
+							<path d="M110,40 Q150,10 190,40" fill="none" stroke="currentColor" stroke-width="2" />
+						</svg>
+					</div>
+
+					<!-- Main Image -->
+					<div class="relative z-10 w-full max-w-md mx-auto">
+						<div class="rounded-b-[200px] overflow-hidden">
+							<img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=1000&auto=format&fit=crop"
+								alt="Dog in clothes"
+								class="w-full h-auto object-cover transform hover:scale-105 transition-transform duration-700" />
 						</div>
-						<!-- logo -->
+					</div>
 
-						<!-- menu start -->
-						<nav class="main-menu">
-							<ul>
-								<li class="current-list-item"><a href="index.html">Home</a></li>
-								<li><a href="about.html">About</a></li>
-								<li><a href="news.html">News</a>
-									<ul class="sub-menu">
-										<li><a href="news.html">News</a></li>
-									</ul>
-								</li>
-								<li><a href="contact.html">Contact</a></li>
-								<li><a href="adoption.html">Adoption</a></li>
-								<li><a href="shop.html">Shop</a>
-									<ul class="sub-menu">
-										<li><a href="shop.html">Shop</a></li>
-										<li><a href="checkout.html">Check Out</a></li>
-										<li><a href="cart.html">Cart</a></li>
-									</ul>
-								</li>
-								<li>
-									<div class="header-icons"
-										style="display: flex; align-items: center; gap: 15px; flex-wrap: nowrap;">
-										<!-- Auth Section -->
-										<div id="auth-section">
-											<a href="login.html" style="color: white;">Login</a>
-										</div>
-
-										<a class="shopping-cart" href="cart.html">
-											<i class="fas fa-shopping-cart"></i>
-											<span id="cart-count" class="badge badge-danger"
-												style="vertical-align: top; font-size: 10px; display: none;">0</span>
-										</a>
-									</div>
-								</li>
-							</ul>
-						</nav>
-						<a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
-						<div class="mobile-menu"></div>
-						<!-- menu end -->
+					<!-- Carousel Controls -->
+					<div
+						class="absolute bottom-8 right-0 md:-right-8 z-20 bg-pet-dark text-white rounded-full px-6 py-3 flex items-center space-x-6">
+						<i data-lucide="arrow-up-right"
+							class="rotate-[225deg] cursor-pointer hover:text-pet-orange transition-colors"
+							width="20"></i>
+						<div class="flex space-x-2">
+							<div class="w-2 h-2 bg-white rounded-full"></div>
+							<div class="w-2 h-2 bg-white/30 rounded-full"></div>
+							<div class="w-2 h-2 bg-white/30 rounded-full"></div>
+							<div class="w-2 h-2 bg-white/30 rounded-full"></div>
+						</div>
+						<i data-lucide="arrow-up-right"
+							class="rotate-45 cursor-pointer hover:text-pet-orange transition-colors" width="20"></i>
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
-	<!-- end header -->
+		</section>
 
-	<!-- search area -->
-	<div class="search-area">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<span class="close-btn"><i class="fas fa-window-close"></i></span>
-					<div class="search-bar">
-						<div class="search-bar-tablecell">
-							<h3>Search For:</h3>
-							<input type="text" placeholder="Keywords">
-							<button type="submit">Search <i class="fas fa-search"></i></button>
-						</div>
+		<!-- Categories -->
+		<div class="bg-pet-orange py-8 overflow-hidden relative">
+			<div class="max-w-7xl mx-auto px-6 flex items-center">
+
+				<!-- Category Badge -->
+				<div class="hidden md:flex flex-shrink-0 relative mr-12 group cursor-pointer">
+					<div
+						class="w-32 h-32 rounded-full border-2 border-dashed border-white flex items-center justify-center animate-spin-slow">
+						<svg viewBox="0 0 100 100" class="w-full h-full absolute top-0 left-0 text-white opacity-20">
+							<path id="curve" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"
+								fill="transparent" />
+							<text width="500">
+								<textPath xlink:href="#curve"
+									class="text-[10px] uppercase tracking-widest font-bold fill-white">
+									Different category different category
+								</textPath>
+							</text>
+						</svg>
+					</div>
+					<div class="absolute inset-0 flex items-center justify-center">
+						<span class="text-4xl font-bold text-pet-dark">45+</span>
 					</div>
 				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end search area -->
 
-	<!-- hero area -->
-	<div class="hero-area hero-bg">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-9 offset-lg-2 text-center">
-					<div class="hero-text">
-						<div class="hero-text-tablecell">
-							<p class="subtitle">Best care for your lovely pets!!</p>
-							<h1>Adoption and Medical Care</h1>
-							<div class="hero-btns">
-								<a href="adoption.html" class="boxed-btn">Pet Collection</a>
-								<a href="contact.html" class="bordered-btn">Contact Us</a>
+				<!-- Scrollable List -->
+				<div class="flex-1 overflow-x-auto no-scrollbar py-4">
+					<div class="flex items-center space-x-6">
+						<!-- Item 1 -->
+						<a href="shop.html"
+							class="flex flex-col items-center transition-all duration-300 opacity-80 hover:opacity-100">
+							<div
+								class="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-2 border-white/30 grayscale hover:grayscale-0 transition-all">
+								<img src="https://images.unsplash.com/photo-1552728089-57bdde30ebd1?w=150&h=150&fit=crop"
+									alt="Bird" class="w-full h-full object-cover" />
 							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end hero area -->
-
-	<!-- features list section -->
-	<div class="list-section pt-80 pb-80">
-		<div class="container">
-
-			<div class="row">
-				<div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-					<div class="list-box d-flex align-items-center">
-						<div class="list-icon">
-							<i class="fas fa-shipping-fast"></i>
-						</div>
-						<div class="content">
-							<h3>Medical Services</h3>
-							<p>All over India!</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-					<div class="list-box d-flex align-items-center">
-						<div class="list-icon">
-							<i class="fas fa-phone-volume"></i>
-						</div>
-						<div class="content">
-							<h3>24/7 Support</h3>
-							<p>Get support all day</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6">
-					<div class="list-box d-flex justify-content-start align-items-center">
-						<div class="list-icon">
-							<i class="fas fa-sync"></i>
-						</div>
-						<div class="content">
-							<h3>Refund</h3>
-							<p>Get refund within 3 days!</p>
-						</div>
-					</div>
-				</div>
-			</div>
-
-		</div>
-	</div>
-	<!-- end features list section -->
-
-	<!-- product section -->
-	<div class="product-section mt-150 mb-150">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 offset-lg-2 text-center">
-					<div class="section-title">
-						<h3><span class="orange-text">Our</span> Pets</h3>
-						<p>"Find your perfect furry friend with us! 🐾 Our adoption center connects loving pets with
-							caring homes. From playful puppies and cuddly kittens to gentle senior pets, we have a
-							variety of adorable companions waiting for you. Every pet is health-checked, vaccinated, and
-							ready to bring joy into your life. Adopt today and give a forever home to a pet in need!
-							❤️🐶🐱"</p>
-					</div>
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="col-lg-4 col-md-6 text-center">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a href="shop.html"><img src="assets/img/products/product-img-1.jpg" alt=""></a>
-						</div>
-						<h3>Cats Meds</h3>
-						<p class="product-price"><span>Starting From</span> Rs.1000 </p>
-						<a href="shop.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Shop</a>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 text-center">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a href="shop.html"><img src="assets/img/products/product-img-2.jpg" alt=""></a>
-						</div>
-						<h3>Dogs Meds</h3>
-						<p class="product-price"><span>Starting From</span> Rs.1000 </p>
-						<a href="shop.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Shop</a>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 offset-md-3 offset-lg-0 text-center">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a href="shop.html"><img src="assets/img/products/product-img-3.jpg" alt=""></a>
-						</div>
-						<h3>Birds Meds</h3>
-						<p class="product-price"><span>Starting From</span> Rs.1000 </p>
-						<a href="shop.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Shop</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end product section -->
-
-	<!-- testimonail-section -->
-	<div class="testimonail-section mt-150 mb-150">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-10 offset-lg-1 text-center">
-					<div class="testimonial-sliders">
-						<div class="single-testimonial-slider">
-							<div class="client-avater">
-								<img src="assets/img/avaters/avatar1.png" alt="">
+						</a>
+						<!-- Item 2 -->
+						<a href="shop.html"
+							class="flex flex-col items-center transition-all duration-300 opacity-80 hover:opacity-100">
+							<div
+								class="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-2 border-white/30 grayscale hover:grayscale-0 transition-all">
+								<img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=150&h=150&fit=crop"
+									alt="Cat" class="w-full h-full object-cover" />
 							</div>
-							<div class="client-meta">
-								<h3>Aditya Acharya <span>Katze Co-founder</span></h3>
-								<p class="testimonial-body">
-									"At Katze, we are dedicated to connecting loving families with pets in need while
-									providing top-notch medical care and pet essentials. As a one-stop destination for
-									pet adoption and veterinary services, we ensure that every pet finds a safe, caring
-									home and receives the best possible health care."
-								</p>
-								<div class="last-icon">
-									<i class="fas fa-quote-right"></i>
+						</a>
+						<!-- Item 3 (Active) -->
+						<a href="shop.html" class="flex flex-col items-center transition-all duration-300 scale-110">
+							<div class="relative">
+								<div class="absolute -inset-2 bg-pet-yellow rounded-full -z-10"></div>
+								<div
+									class="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-4 border-white">
+									<img src="https://images.unsplash.com/photo-1517849845537-4d257902454a?w=150&h=150&fit=crop"
+										alt="Dog" class="w-full h-full object-cover" />
+								</div>
+								<div class="text-white font-bold text-center mt-2 text-sm uppercase">
+									Dog <span class="opacity-70 text-xs block font-normal">(JASPER)</span>
 								</div>
 							</div>
+						</a>
+						<!-- Item 4 -->
+						<a href="shop.html"
+							class="flex flex-col items-center transition-all duration-300 opacity-80 hover:opacity-100">
+							<div
+								class="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-2 border-white/30 grayscale hover:grayscale-0 transition-all">
+								<img src="https://images.unsplash.com/photo-1444464666168-49d633b86797?w=150&h=150&fit=crop"
+									alt="Bird" class="w-full h-full object-cover" />
+							</div>
+						</a>
+						<!-- Item 5 -->
+						<a href="shop.html"
+							class="flex flex-col items-center transition-all duration-300 opacity-80 hover:opacity-100">
+							<div
+								class="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-2 border-white/30 grayscale hover:grayscale-0 transition-all">
+								<img src="https://images.unsplash.com/photo-1573865526739-10659fec78a5?w=150&h=150&fit=crop"
+									alt="Cat" class="w-full h-full object-cover" />
+							</div>
+						</a>
+						<!-- Item 6 -->
+						<a href="shop.html"
+							class="flex flex-col items-center transition-all duration-300 opacity-80 hover:opacity-100">
+							<div
+								class="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-2 border-white/30 grayscale hover:grayscale-0 transition-all">
+								<img src="https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?w=150&h=150&fit=crop"
+									alt="Dog" class="w-full h-full object-cover" />
+							</div>
+						</a>
+						<!-- Item 7 -->
+						<a href="shop.html"
+							class="flex flex-col items-center transition-all duration-300 opacity-80 hover:opacity-100">
+							<div
+								class="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-2 border-white/30 grayscale hover:grayscale-0 transition-all">
+								<img src="https://images.unsplash.com/photo-1585110396000-c92857427706?w=150&h=150&fit=crop"
+									alt="Rabbit" class="w-full h-full object-cover" />
+							</div>
+						</a>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<!-- Services -->
+		<section class="py-20 bg-pet-cream relative overflow-hidden">
+			<!-- Decorative Scribble -->
+			<div class="absolute top-10 left-[-50px] w-32 h-32 text-pet-yellow pointer-events-none">
+				<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3">
+					<path d="M10,50 Q30,20 50,50 T90,50" />
+					<path d="M10,60 Q30,30 50,60 T90,60" class="opacity-50" />
+				</svg>
+			</div>
+
+			<div class="max-w-7xl mx-auto px-6 md:px-12">
+				<h2 class="text-4xl font-bold text-pet-dark mb-12">Our Service</h2>
+
+				<div class="flex flex-col lg:flex-row gap-8">
+
+					<!-- Card 1: Pharmacy -->
+					<div
+						class="bg-pet-yellow rounded-[40px] p-8 flex-1 relative group hover:-translate-y-2 transition-transform duration-300">
+						<div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-6">
+							<i data-lucide="stethoscope" class="text-pet-dark w-8 h-8"></i>
 						</div>
-						<div class="single-testimonial-slider">
-							<div class="client-avater">
-								<img src="assets/img/avaters/avatar2.png" alt="">
-							</div>
-							<div class="client-meta">
-								<h3>Tanmay Gawade<span>Katze Co-founder</span></h3>
-								<p class="testimonial-body">
-									"Welcome to Katze, your trusted partner in pet adoption and healthcare! We are
-									passionate about helping pets find loving homes while ensuring they receive the best
-									medical care. Whether you're looking to adopt a furry companion or need high-quality
-									pet supplies and veterinary services, Katze is here for you."
-								</p>
-								<div class="last-icon">
-									<i class="fas fa-quote-right"></i>
-								</div>
-							</div>
+						<h3 class="text-2xl font-bold text-pet-dark mb-4">Pharmacy</h3>
+						<p class="text-pet-dark/80 mb-8 leading-relaxed">
+							Apoquel is an oral tablet that works differently than other allergy medications. It goes
+							straight to the source to help relieve itch and inflammation.
+						</p>
+						<a href="shop.html"
+							class="bg-pet-dark text-white px-8 py-3 rounded-full text-sm font-medium hover:bg-opacity-90 inline-block">
+							Explore
+						</a>
+
+						<!-- Doodles at bottom -->
+						<div class="absolute bottom-4 right-4 flex space-x-2 opacity-50">
+							<div
+								class="w-8 h-8 rounded-full border-2 border-pet-dark flex items-center justify-center text-xs">
+								🐶</div>
+							<div
+								class="w-8 h-8 rounded-full border-2 border-pet-dark flex items-center justify-center text-xs">
+								🐱</div>
 						</div>
-						<div class="single-testimonial-slider">
-							<div class="client-avater">
-								<img src="assets/img/avaters/avatar3.png" alt="">
-							</div>
-							<div class="client-meta">
-								<h3>Anamika Ashokkumar<span>Pet Care Expert</span></h3>
-								<p class="testimonial-body">
-									"Hi there! I’m Anamika Ashokkumar, a passionate pet expert at Katze, dedicated to
-									helping pets live happy, healthy lives. With years of experience in pet care,
-									adoption, and veterinary support, I’m here to guide you in finding the perfect furry
-									friend and ensuring they receive the best care possible."
-								</p>
-								<div class="last-icon">
-									<i class="fas fa-quote-right"></i>
-								</div>
-							</div>
+					</div>
+
+					<!-- Card 2: Grooming -->
+					<div
+						class="bg-[#EFEEE9] rounded-[40px] p-8 flex-1 group hover:-translate-y-2 transition-transform duration-300">
+						<div class="w-16 h-16 bg-pet-yellow rounded-full flex items-center justify-center mb-6">
+							<i data-lucide="scissors" class="text-pet-dark w-8 h-8"></i>
+						</div>
+						<h3 class="text-2xl font-bold text-pet-dark mb-4">Breed-specific Haircuts</h3>
+						<p class="text-gray-600 mb-8 leading-relaxed">
+							Regular grooming is essential to your pet's health as it helps prevent skin issues such as
+							matting.
+						</p>
+						<a href="shop.html"
+							class="border-2 border-pet-dark text-pet-dark px-8 py-3 rounded-full text-sm font-medium hover:bg-pet-dark hover:text-white transition-colors inline-block">
+							Explore
+						</a>
+					</div>
+
+					<!-- Card 3: Clothes -->
+					<div
+						class="bg-[#EFEEE9] rounded-[40px] p-8 flex-1 group hover:-translate-y-2 transition-transform duration-300 hidden md:block">
+						<div class="w-16 h-16 bg-pet-yellow rounded-full flex items-center justify-center mb-6">
+							<i data-lucide="shirt" class="text-pet-dark w-8 h-8"></i>
+						</div>
+						<h3 class="text-2xl font-bold text-pet-dark mb-4">Cloths</h3>
+						<p class="text-gray-600 mb-8 leading-relaxed">
+							Is your dog ready for the winter? Don't forget to check out our pet's next outfit!
+						</p>
+						<a href="shop.html"
+							class="border-2 border-pet-dark text-pet-dark px-8 py-3 rounded-full text-sm font-medium hover:bg-pet-dark hover:text-white transition-colors inline-block">
+							Explore
+						</a>
+					</div>
+
+				</div>
+
+				<!-- Navigation Arrows -->
+				<div class="flex justify-end space-x-4 mt-8">
+					<button
+						class="w-12 h-12 rounded-full border border-pet-dark flex items-center justify-center text-pet-dark hover:bg-pet-dark hover:text-white transition-colors">
+						<i data-lucide="arrow-left" width="20"></i>
+					</button>
+					<button
+						class="w-12 h-12 rounded-full border border-pet-dark bg-pet-dark text-white flex items-center justify-center hover:bg-opacity-90 transition-colors">
+						<i data-lucide="arrow-right" width="20"></i>
+					</button>
+				</div>
+			</div>
+		</section>
+
+		<!-- Features -->
+		<section class="bg-pet-teal py-20 px-6 relative overflow-hidden">
+			<!-- Decorative lines -->
+			<div
+				class="absolute top-1/2 left-4 w-24 h-12 border-t-2 border-b-2 border-white/20 rounded-full transform -rotate-12">
+			</div>
+
+			<div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+
+				<!-- Left Image with Wavy Mask -->
+				<div class="relative">
+					<div class="w-full aspect-square bg-pet-cream rounded-[3rem] overflow-hidden relative">
+						<img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=1000&auto=format&fit=crop"
+							alt="Woman hugging dog" class="w-full h-full object-cover" />
+						<div class="absolute top-0 left-0 w-full h-4 bg-pet-teal"
+							style="clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); mask-image: radial-gradient(circle at 10px 0, transparent 0, transparent 10px, black 11px); -webkit-mask-image: radial-gradient(circle at 10px 0, transparent 0, transparent 10px, black 11px);">
+						</div>
+						<div
+							class="absolute inset-0 pointer-events-none border-[12px] border-pet-teal rounded-[3rem] z-10">
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end testimonail-section -->
 
-	<!-- advertisement section -->
-	<div class="abt-section mb-150">
-		<div class="container">
-			<div class="row">
-				<div class="abt-text">
-					<h2>How to take care of your <span class="orange-text">Pets!</span></h2>
-					<p>Taking care of your pet is a rewarding experience that requires love, patience, and dedication.
-						At Katze, we believe that pets are more than just companions—they are family. Ensuring their
-						well-being means providing them with proper nutrition, regular veterinary care, and a safe,
-						loving environment.</p>
-					<p>Regular vet visits are crucial in keeping your pet healthy. Preventive care, such as
-						vaccinations, deworming, and parasite control, helps protect them from common illnesses. If you
-						ever notice changes in their behavior or health, seeking professional advice promptly can make a
-						big difference.</p>
-					<a href="https://www.wikihow.com/Take-Care-of-Your-Pet" class="boxed-btn mt-4">know more</a>
+				<!-- Right Content -->
+				<div class="text-white">
+					<h2 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+						<span class="text-pet-orange">Our</span> Pets
+					</h2>
+					<p class="text-white/80 mb-8 leading-relaxed text-lg">
+						"Find your perfect furry friend with us! 🐾 Our adoption center connects loving pets with caring
+						homes. From playful puppies and cuddly kittens to gentle senior pets, we have a variety of
+						adorable companions waiting for you. Every pet is health-checked, vaccinated, and ready to bring
+						joy into your life. Adopt today and give a forever home to a pet in need! ❤️🐶🐱"
+					</p>
+
+					<ul class="space-y-4 mb-10">
+						<li class="flex items-center space-x-3">
+							<div class="w-5 h-5 rounded-full border border-white flex items-center justify-center">
+								<div class="w-2 h-2 bg-white rounded-full"></div>
+							</div>
+							<span class="font-medium">Adoption</span>
+						</li>
+						<li class="flex items-center space-x-3">
+							<div class="w-5 h-5 rounded-full border border-white flex items-center justify-center">
+								<div class="w-2 h-2 bg-white rounded-full"></div>
+							</div>
+							<span class="font-medium">Frozen Raw</span>
+						</li>
+						<li class="flex items-center space-x-3">
+							<div class="w-5 h-5 rounded-full border border-white flex items-center justify-center">
+								<div class="w-2 h-2 bg-white rounded-full"></div>
+							</div>
+							<span class="font-medium">Next Day Delivery</span>
+						</li>
+					</ul>
+
+					<a href="shop.html"
+						class="bg-pet-dark text-white px-10 py-4 rounded-full font-medium hover:bg-opacity-90 transition-all shadow-lg inline-block">
+						Explore
+					</a>
 				</div>
 			</div>
-		</div>
-	</div>
-	</div>
-	<!-- end advertisement section -->
 
-	<!-- shop banner -->
-	<section class="shop-banner">
-		<div class="container">
-			<h3>Summer sale is on! <br> with big <span class="orange-text">Discount...</span></h3>
-			<div class="sale-percent"><span>Sale! <br> Upto</span>50% <span>off on Select medicines</span></div>
-			<a href="shop.html" class="cart-btn btn-lg">Shop Now</a>
-		</div>
-	</section>
-	<!-- end shop banner -->
+			<!-- Right side claw marks -->
+			<div class="absolute top-20 right-0 opacity-10 pointer-events-none">
+				<svg width="150" height="300" viewBox="0 0 100 200">
+					<path d="M20,0 Q50,100 10,200" stroke="white" stroke-width="20" fill="none" />
+					<path d="M50,10 Q80,110 40,200" stroke="white" stroke-width="20" fill="none" />
+					<path d="M80,20 Q110,120 70,200" stroke="white" stroke-width="20" fill="none" />
+				</svg>
+			</div>
+		</section>
 
-	<!-- latest news -->
-	<div class="latest-news pt-150 pb-150">
-		<div class="container">
+		<!-- Testimonials -->
+		<section class="py-24 bg-pet-cream px-6 md:px-12 relative">
+			<div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
 
-			<div class="row">
-				<div class="col-lg-8 offset-lg-2 text-center">
-					<div class="section-title">
-						<h3><span class="orange-text">Our</span> News</h3>
+				<!-- Left: Image Card -->
+				<div class="relative">
+					<div
+						class="rounded-[40px] overflow-hidden border border-gray-200 bg-gray-100 aspect-[4/5] relative z-10">
+						<img id="testimonial-img" src="assets/img/team/team-1.jpg" alt="Customer"
+							class="w-full h-full object-cover transition-opacity duration-300" />
+
+						<!-- Carousel Dots on Image -->
+						<div
+							class="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2 bg-white/20 backdrop-blur-md px-4 py-2 rounded-full">
+							<div class="w-2.5 h-2.5 bg-white rounded-full"></div>
+							<div class="w-2.5 h-2.5 bg-white/50 rounded-full"></div>
+							<div class="w-2.5 h-2.5 bg-white/50 rounded-full"></div>
+						</div>
+					</div>
+
+					<!-- Decorative Quote Bubble Icon -->
+					<div
+						class="absolute -top-8 -right-8 w-24 h-24 bg-pet-orange rounded-full flex items-center justify-center z-20 shadow-lg border-4 border-pet-cream">
+						<i data-lucide="quote" class="text-white w-10 h-10 fill-current"></i>
 					</div>
 				</div>
-			</div>
 
-			<div class="row">
-				<div class="col-lg-4 col-md-6">
-					<div class="single-latest-news">
-						<div class="latest-news-bg news-bg-1"></div>
-						<div class="news-text-box">
-							<h3>Dogs Prefer Electric Vehicles.</h3>
-							<p class="blog-meta">
-								<span class="author"><i class="fas fa-user"></i> Admin</span>
-								<span class="date"><i class="fas fa-calendar"></i> December, 2019</span>
+				<!-- Right: Content -->
+				<div class="relative pl-0 md:pl-12">
+					<!-- Star Icon floating -->
+					<div class="absolute -top-12 right-0 text-pet-dark">
+						<svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+							<path
+								d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
+						</svg>
+					</div>
+
+					<h2 class="text-4xl font-bold text-pet-dark mb-10">Customer Reviews</h2>
+
+					<!-- Quote Box with Scalloped Bottom -->
+					<div class="relative">
+						<!-- Dashed line connecting star to box -->
+						<svg class="absolute -top-10 right-10 w-32 h-20 text-gray-400 hidden md:block" fill="none">
+							<path d="M10,80 Q50,0 100,20" stroke="currentColor" stroke-dasharray="4 4"
+								stroke-width="2" />
+						</svg>
+
+						<div
+							class="bg-[#F8F5E8] p-8 md:p-10 rounded-t-3xl relative min-h-[250px] flex flex-col justify-center">
+							<p id="testimonial-text"
+								class="text-gray-700 text-lg leading-relaxed font-medium transition-opacity duration-300">
+								"At Katze, we are dedicated to connecting loving families with pets in need while
+								providing top-notch medical care and pet essentials. As a one-stop destination for pet
+								adoption and veterinary services, we ensure that every pet finds a safe, caring home and
+								receives the best possible health care."
 							</p>
-							<p class="excerpt">A study led by Dr. Scott Miller found that dogs experience less stress
-								traveling in electric vehicles (EVs) compared to petrol and diesel cars. Monitoring a
-								cocker spaniel named Mango, the research showed that the dog's heart rate increased less
-								in an EV, suggesting a smoother, quieter ride enhances canine comfort.</p>
-
+							<div class="mt-4 transition-opacity duration-300" id="testimonial-meta">
+								<p id="testimonial-author" class="font-bold text-pet-dark">Aditya Acharya</p>
+								<p id="testimonial-role" class="text-sm text-gray-500">Katze Co-founder</p>
+							</div>
 						</div>
+						<!-- Scalloped Bottom Edge -->
+						<div class="h-6 w-full bg-[#F8F5E8] scalloped-bottom rounded-b-md"></div>
+					</div>
+
+					<!-- Navigation -->
+					<div class="flex space-x-4 mt-8">
+						<button id="prev-btn"
+							class="w-12 h-12 rounded-full border border-pet-dark text-pet-dark flex items-center justify-center hover:bg-pet-dark hover:text-white transition-colors">
+							<i data-lucide="arrow-left" width="20"></i>
+						</button>
+						<button id="next-btn"
+							class="w-12 h-12 rounded-full border border-pet-dark bg-pet-dark text-white flex items-center justify-center hover:bg-opacity-90 transition-colors">
+							<i data-lucide="arrow-right" width="20"></i>
+						</button>
 					</div>
 				</div>
-				<div class="col-lg-4 col-md-6">
-					<div class="single-latest-news">
-						<div class="latest-news-bg news-bg-2"></div>
-						<div class="news-text-box">
-							<h3>Cat Containment Discussions in Scotland.</h3>
-							<p class="blog-meta">
-								<span class="author"><i class="fas fa-user"></i> Admin</span>
-								<span class="date"><i class="fas fa-calendar"></i> 27 December, 2019</span>
-							</p>
-							<p class="excerpt"> Proposals for "cat containment areas" have been introduced in Scotland
-								to protect wildlife from predation by domestic cats. While restrictive measures are
-								controversial, alternatives like collars with bells or feeding cats high meat-content
-								food have been suggested to reduce hunting behavior.</p>
 
-						</div>
-					</div>
+			</div>
+		</section>
+
+		<!-- Newsletter -->
+		<section class="flex flex-col md:flex-row h-auto md:h-[400px]">
+
+			<!-- Left: Yellow with Dog -->
+			<div class="flex-1 bg-pet-yellow relative flex items-end justify-center overflow-hidden">
+				<!-- Abstract Blue Lines behind dog -->
+				<div
+					class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[120%] h-64 border-[40px] border-pet-dark rounded-full z-0 opacity-10">
 				</div>
-				<div class="col-lg-4 col-md-6 offset-md-3 offset-lg-0">
-					<div class="single-latest-news">
-						<div class="latest-news-bg news-bg-3"></div>
-						<div class="news-text-box">
-							<h3>Pet Abduction Act 2024.</h3>
-							<p class="blog-meta">
-								<span class="author"><i class="fas fa-user"></i> Admin</span>
-								<span class="date"><i class="fas fa-calendar"></i> 27 December, 2019</span>
-							</p>
-							<p class="excerpt">The UK enacted the Pet Abduction Act 2024, making the abduction of pets,
-								such as cats and dogs, a specific criminal offense. Convictions can result in fines
-								and/or up to five years in prison, reflecting the recognition of pets as sentient beings
-								capable of experiencing distress when stolen. </p>
+				<div
+					class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[100%] h-48 border-[20px] border-pet-dark rounded-full z-0 opacity-10">
+				</div>
 
-						</div>
-					</div>
+				<img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=600&auto=format&fit=crop"
+					alt="Dog listening" class="relative z-10 h-[90%] object-contain" />
+			</div>
+
+			<!-- Right: Orange with Form -->
+			<div
+				class="flex-1 bg-pet-orange flex flex-col justify-center px-10 md:px-20 py-12 relative overflow-hidden">
+				<!-- Decorative Swirl -->
+				<div class="absolute top-0 right-0 w-64 h-64 opacity-20 pointer-events-none">
+					<svg viewBox="0 0 200 200" class="w-full h-full text-pet-yellow">
+						<path d="M100,100 m-80,0 a 80,80 0 1,1 160,0 a 80,80 0 1,1 -160,0" fill="none"
+							stroke="currentColor" stroke-width="10" />
+						<path d="M100,100 m-60,0 a 60,60 0 1,1 120,0 a 60,60 0 1,1 -120,0" fill="none"
+							stroke="currentColor" stroke-width="10" />
+						<path d="M100,100 m-40,0 a 40,40 0 1,1 80,0 a 40,40 0 1,1 -80,0" fill="none"
+							stroke="currentColor" stroke-width="10" />
+					</svg>
+				</div>
+
+				<h2 class="text-4xl md:text-5xl font-bold text-pet-dark mb-10 leading-tight z-10">
+					Subscribe & Get Pet <br /> Updatenews
+				</h2>
+
+				<div class="relative z-10 max-w-md">
+					<input type="email" placeholder="Mail"
+						class="w-full bg-transparent border-b border-white/50 text-white placeholder-white/70 py-4 pr-12 text-lg focus:outline-none focus:border-white transition-colors" />
+					<button
+						class="absolute right-0 top-1/2 transform -translate-y-1/2 text-white hover:text-pet-dark transition-colors">
+						<i data-lucide="arrow-right" size="28"></i>
+					</button>
 				</div>
 			</div>
-		</div>
-	</div>
-	<!-- end latest news -->
-	<!-- footer -->
+		</section>
 
-	<div class="footer-area">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-3 col-md-6">
-					<div class="footer-box about-widget">
-						<h2 class="widget-title">About us</h2>
-						<p>At Katze, we rescue, rehabilitate, and rehome animals, giving them a second chance at a
-							loving home. With dedicated care and community support, we strive to make a lasting
-							impact—one life at a time.</p>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6">
-					<div class="footer-box get-in-touch">
-						<h2 class="widget-title">Get in Touch</h2>
-						<ul>
-							<li>Location: Pillai College of Engineering, New Panvel, Maharashtra, India</li>
-							<li>Email: support@katze.com </li>
-							<li>
-								Phone: +00 111 222 3333
+	</main>
 
-							</li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-lg-2 col-md-6">
-					<div class="footer-box pages">
-						<h2 class="widget-title">Pages</h2>
-						<ul>
-							<li><a href="index.html">Home</a></li>
-							<li><a href="about.html">About</a></li>
-							<li><a href="shop.html">Shop</a></li>
-							<li><a href="news.html">News</a></li>
-							<li><a href="contact.html">Contact</a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6">
-					<div class="footer-box subscribe">
-						<h2 class="widget-title">Subscribe</h2>
-						<p>Subscribe to our mailing list to get the latest updates.</p>
-						<form action="index.html">
-							<input type="email" placeholder="Email">
-							<button type="submit"><i class="fas fa-paper-plane"></i></button>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end footer -->
+	<!-- Footer -->
+	<footer class="bg-pet-footer text-gray-200 pt-20 pb-8 px-6 relative overflow-hidden font-sans">
+		<div class="max-w-7xl mx-auto">
 
-	<!-- copyright -->
-	<div class="copyright">
-		<div class="container">
-			<div class="row" style="display: flex; align-items: center; justify-content: space-between;">
+			<!-- Main Grid -->
+			<div
+				class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-8 mb-16 border-b border-gray-700 pb-12">
 
-				<!-- Left Section: User Location -->
-				<div style="display: flex; align-items: center; gap: 10px;">
-					<div id="geo-location"
-						style="color: white; font-size: 14px; display: flex; align-items: center; white-space: nowrap;">
-						<i class="fas fa-map-marker-alt" style="color: #ff4081; margin-right: 5px;"></i>
-						<span id="user-location">Detecting location...</span>
-					</div>
-					<p> | </p> <!-- Separator -->
-					<p>All Rights Reserved. 2020-2025</p>
-				</div>
+				<!-- Col 1: Contact Info -->
+				<div class="space-y-6">
+					<a href="index.html" class="block mb-4">
+						<img src="assets/img/logo.png" alt="Katze" style="height: 60px;">
+					</a>
+					<p class="text-gray-400 text-sm mb-6">Awesome pet store website template</p>
 
-				<!-- Right Section: Social Icons -->
-				<div class="social-icons">
-					<ul style="display: flex; gap: 10px; list-style: none; padding: 0; margin: 0;">
-						<li><a href="https://www.facebook.com/groups/2134934466835304/" target="_blank"><i
-									class="fab fa-facebook-f"></i></a></li>
-						<li><a href="https://x.com/animalfndlv" target="_blank"><i class="fab fa-twitter"></i></a></li>
-						<li><a href="https://www.instagram.com/animaladoptionindia/?hl=en" target="_blank"><i
-									class="fab fa-instagram"></i></a></li>
-						<li><a href="https://www.linkedin.com/company/adopt-a-pet-com/" target="_blank"><i
-									class="fab fa-linkedin"></i></a></li>
+					<ul class="space-y-3 text-sm text-gray-300">
+						<li class="flex items-start gap-3">
+							<i data-lucide="map-pin" class="w-5 h-5 text-pet-orange flex-shrink-0 mt-0.5"></i>
+							<span><strong>Address:</strong> 5171 W Campbell Ave, Utah 53127 United States</span>
+						</li>
+						<li class="flex items-center gap-3">
+							<i data-lucide="headset" class="w-5 h-5 text-pet-orange flex-shrink-0"></i>
+							<span><strong>Call Us:</strong> (+91) - 540-025-124553</span>
+						</li>
+						<li class="flex items-center gap-3">
+							<i data-lucide="mail" class="w-5 h-5 text-pet-orange flex-shrink-0"></i>
+							<span><strong>Email:</strong> sale@Katze.com</span>
+						</li>
+						<li class="flex items-center gap-3">
+							<i data-lucide="clock" class="w-5 h-5 text-pet-orange flex-shrink-0"></i>
+							<span><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</span>
+						</li>
 					</ul>
 				</div>
 
+				<!-- Col 2: Company -->
+				<div>
+					<h3 class="text-xl font-bold text-white mb-6">Company</h3>
+					<ul class="space-y-4 text-sm">
+						<li><a href="about.html" class="hover:text-pet-orange transition-colors">About Us</a></li>
+						<li><a href="#" class="hover:text-pet-orange transition-colors">Delivery Information</a></li>
+						<li><a href="#" class="hover:text-pet-orange transition-colors">Privacy Policy</a></li>
+						<li><a href="#" class="hover:text-pet-orange transition-colors">Terms & Conditions</a></li>
+						<li><a href="contact.html" class="hover:text-pet-orange transition-colors">Contact Us</a></li>
+						<li><a href="#" class="hover:text-pet-orange transition-colors">Support Center</a></li>
+						<li><a href="#" class="hover:text-pet-orange transition-colors">Careers</a></li>
+					</ul>
+				</div>
+
+				<!-- Col 3: Account -->
+				<div>
+					<h3 class="text-xl font-bold text-white mb-6">Account</h3>
+					<ul class="space-y-4 text-sm">
+						<li><a href="login.html" class="hover:text-pet-orange transition-colors">Sign In</a></li>
+						<li><a href="cart.html" class="hover:text-pet-orange transition-colors">View Cart</a></li>
+						<li><a href="#" class="hover:text-pet-orange transition-colors">My Wishlist</a></li>
+						<li><a href="orders.html" class="hover:text-pet-orange transition-colors">Track My Order</a>
+						</li>
+						<li><a href="#" class="hover:text-pet-orange transition-colors">Help Ticket</a></li>
+						<li><a href="#" class="hover:text-pet-orange transition-colors">Shipping Details</a></li>
+						<li><a href="#" class="hover:text-pet-orange transition-colors">Compare products</a></li>
+					</ul>
+				</div>
+
+				<!-- Col 4: Corporate (Services) -->
+				<div>
+					<h3 class="text-xl font-bold text-white mb-6">Services</h3>
+					<ul class="space-y-4 text-sm">
+						<li><a href="#" class="hover:text-pet-orange transition-colors">Become a Vendor</a></li>
+						<li><a href="#" class="hover:text-pet-orange transition-colors">Affiliate Program</a></li>
+						<li><a href="#" class="hover:text-pet-orange transition-colors">Farm Business</a></li>
+						<li><a href="#" class="hover:text-pet-orange transition-colors">Farm Careers</a></li>
+						<li><a href="#" class="hover:text-pet-orange transition-colors">Our Suppliers</a></li>
+						<li><a href="#" class="hover:text-pet-orange transition-colors">Accessibility</a></li>
+						<li><a href="#" class="hover:text-pet-orange transition-colors">Promotions</a></li>
+					</ul>
+				</div>
+
+				<!-- Col 5: App & Payment -->
+				<div>
+					<h3 class="text-xl font-bold text-white mb-6">Install App</h3>
+					<p class="text-sm text-gray-400 mb-4">From App Store or Google Play</p>
+
+					<div class="flex flex-col gap-3 mb-6">
+						<button
+							class="bg-black text-white px-4 py-2 rounded-lg flex items-center gap-3 hover:bg-gray-800 transition-colors border border-gray-700 w-fit">
+							<i data-lucide="apple" class="w-6 h-6"></i>
+							<div class="text-left">
+								<div class="text-[10px] leading-tight">Download on the</div>
+								<div class="text-sm font-bold leading-tight">App Store</div>
+							</div>
+						</button>
+						<button
+							class="bg-black text-white px-4 py-2 rounded-lg flex items-center gap-3 hover:bg-gray-800 transition-colors border border-gray-700 w-fit">
+							<i data-lucide="play" class="w-6 h-6 fill-current"></i>
+							<div class="text-left">
+								<div class="text-[10px] leading-tight">GET IT ON</div>
+								<div class="text-sm font-bold leading-tight">Google Play</div>
+							</div>
+						</button>
+					</div>
+
+					<p class="text-sm text-gray-400 mb-4">Secured Payment Gateways</p>
+					<div class="flex gap-2">
+						<!-- Payment Icons Placeholders -->
+						<div class="w-10 h-6 bg-white rounded flex items-center justify-center"><span
+								class="text-xs text-black font-bold">VISA</span></div>
+						<div class="w-10 h-6 bg-white rounded flex items-center justify-center"><span
+								class="text-xs text-black font-bold">MC</span></div>
+						<div class="w-10 h-6 bg-white rounded flex items-center justify-center"><span
+								class="text-xs text-black font-bold">AmEx</span></div>
+					</div>
+				</div>
+
 			</div>
+
+			<!-- Bottom Bar -->
+			<div class="flex flex-col md:flex-row justify-between items-center pt-8 gap-6">
+				<div class="text-sm text-gray-400">
+					&copy; 2024, <strong class="text-pet-orange">Katze</strong> - HTML Ecommerce Template <br>
+					All rights reserved
+				</div>
+
+				<div class="flex gap-8 items-center">
+					<div class="flex items-center gap-3">
+						<i data-lucide="phone-call" class="w-8 h-8 text-gray-400 stroke-1"></i>
+						<div class="text-right hidden md:block">
+							<div class="text-2xl font-bold text-pet-orange leading-none">1900 - 6666</div>
+							<div class="text-xs text-gray-500">Working 8:00 - 22:00</div>
+						</div>
+					</div>
+					<div class="flex items-center gap-3">
+						<i data-lucide="phone-call" class="w-8 h-8 text-gray-400 stroke-1"></i>
+						<div class="text-right hidden md:block">
+							<div class="text-2xl font-bold text-pet-orange leading-none">1900 - 8888</div>
+							<div class="text-xs text-gray-500">24/7 Support Center</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="flex items-center gap-4">
+					<span class="text-sm font-bold text-gray-300">Follow Us</span>
+					<a href="#"
+						class="w-8 h-8 rounded-full bg-pet-orange text-white flex items-center justify-center hover:bg-opacity-80 transition-opacity">
+						<i data-lucide="facebook" width="16"></i>
+					</a>
+					<a href="#"
+						class="w-8 h-8 rounded-full bg-pet-orange text-white flex items-center justify-center hover:bg-opacity-80 transition-opacity">
+						<i data-lucide="twitter" width="16"></i>
+					</a>
+					<a href="#"
+						class="w-8 h-8 rounded-full bg-pet-orange text-white flex items-center justify-center hover:bg-opacity-80 transition-opacity">
+						<i data-lucide="instagram" width="16"></i>
+					</a>
+					<a href="#"
+						class="w-8 h-8 rounded-full bg-pet-orange text-white flex items-center justify-center hover:bg-opacity-80 transition-opacity">
+						<i data-lucide="youtube" width="16"></i>
+					</a>
+				</div>
+			</div>
+
+			<!-- GeoLocation -->
+			<div id="geo-location"
+				class="mt-8 text-center text-xs text-gray-600 flex justify-center items-center gap-2">
+				<i data-lucide="map-pin" width="12"></i>
+				<span id="user-location">Detecting location...</span>
+			</div>
+
 		</div>
-	</div>
+	</footer>
 
-	<!-- end copyright -->
+	<script>
+		// Initialize Lucide icons
+		lucide.createIcons();
 
-	<!-- jquery -->
-	<script src="assets/js/jquery-1.11.3.min.js"></script>
-	<!-- bootstrap -->
-	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
-	<!-- count down -->
-	<script src="assets/js/jquery.countdown.js"></script>
-	<!-- isotope -->
-	<script src="assets/js/jquery.isotope-3.0.6.min.js"></script>
-	<!-- waypoints -->
-	<script src="assets/js/waypoints.js"></script>
-	<!-- owl carousel -->
-	<script src="assets/js/owl.carousel.min.js"></script>
-	<!-- magnific popup -->
-	<script src="assets/js/jquery.magnific-popup.min.js"></script>
-	<!-- mean menu -->
-	<script src="assets/js/jquery.meanmenu.min.js"></script>
-	<!-- sticker js -->
-	<script src="assets/js/sticker.js"></script>
-	<!-- main js -->
-	<script src="assets/js/main.js"></script>
+		// Mobile Menu Logic
+		const toggleBtn = document.getElementById('mobile-toggle');
+		const mobileMenu = document.getElementById('mobile-menu');
+		const iconMenu = document.getElementById('icon-menu');
+		const iconClose = document.getElementById('icon-close');
 
-	<!-- Firebase Logic -->
+		if (toggleBtn) {
+			toggleBtn.addEventListener('click', () => {
+				mobileMenu.classList.toggle('hidden');
+
+				if (mobileMenu.classList.contains('hidden')) {
+					iconMenu.classList.remove('hidden');
+					iconClose.classList.add('hidden');
+				} else {
+					iconMenu.classList.add('hidden');
+					iconClose.classList.remove('hidden');
+				}
+			});
+		}
+
+		// Testimonial Logic
+		const testimonials = [
+			{
+				img: "assets/img/team/team-1.jpg",
+				text: "At Katze, we are dedicated to connecting loving families with pets in need while providing top-notch medical care and pet essentials. As a one-stop destination for pet adoption and veterinary services, we ensure that every pet finds a safe, caring home and receives the best possible health care.",
+				author: "Aditya Acharya",
+				role: "Katze Co-founder"
+			},
+			{
+				img: "assets/img/team/team-2.jpg",
+				text: "Welcome to Katze, your trusted partner in pet adoption and healthcare! We are passionate about helping pets find loving homes while ensuring they receive the best medical care. Whether you're looking to adopt a furry companion or need high-quality pet supplies and veterinary services, Katze is here for you.",
+				author: "Tanmay Gawade",
+				role: "Katze Co-founder"
+			},
+			{
+				img: "assets/img/team/team-3.jpg",
+				text: "Hi there! I’m Anamika Ashokkumar, a passionate pet expert at Katze, dedicated to helping pets live happy, healthy lives. With years of experience in pet care, adoption, and veterinary support, I’m here to guide you in finding the perfect furry friend and ensuring they receive the best care possible.",
+				author: "Anamika Ashokkumar",
+				role: "Pet Care Expert"
+			}
+		];
+
+		let currentIndex = 0;
+		const imgEl = document.getElementById('testimonial-img');
+		const textEl = document.getElementById('testimonial-text');
+		const authorEl = document.getElementById('testimonial-author');
+		const roleEl = document.getElementById('testimonial-role');
+		const prevBtn = document.getElementById('prev-btn');
+		const nextBtn = document.getElementById('next-btn');
+
+		function updateTestimonial(index) {
+			const t = testimonials[index];
+			imgEl.style.opacity = 0;
+			textEl.style.opacity = 0;
+			document.getElementById('testimonial-meta').style.opacity = 0;
+
+			setTimeout(() => {
+				imgEl.src = t.img;
+				textEl.innerText = `"${t.text}"`;
+				authorEl.innerText = t.author;
+				roleEl.innerText = t.role;
+
+				imgEl.style.opacity = 1;
+				textEl.style.opacity = 1;
+				document.getElementById('testimonial-meta').style.opacity = 1;
+			}, 300);
+		}
+
+		prevBtn.addEventListener('click', () => {
+			currentIndex = (currentIndex - 1 + testimonials.length) % testimonials.length;
+			updateTestimonial(currentIndex);
+		});
+
+		nextBtn.addEventListener('click', () => {
+			currentIndex = (currentIndex + 1) % testimonials.length;
+			updateTestimonial(currentIndex);
+		});
+	</script>
 	<script type="module" src="js/app.js"></script>
-
 </body>
 
 </html>

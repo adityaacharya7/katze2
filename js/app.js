@@ -3,11 +3,11 @@ import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/
 import { CartService } from './cart-service.js';
 
 // DOM Elements
-const authSection = document.getElementById('auth-section');
+// DOM Elements
+const authActions = document.getElementById('auth-actions');
 const cartCount = document.getElementById('cart-count');
 const geoLocation = document.getElementById('geo-location');
 
-// Monitor Auth State
 // Monitor Auth State
 onAuthStateChanged(auth, (user) => {
     const protectedPages = ['cart.html', 'checkout.html', 'orders.html'];
@@ -19,49 +19,69 @@ onAuthStateChanged(auth, (user) => {
         const userEmail = user.email;
 
         // Render Dropdown
-        // Note: Using inline styles for simplicity as requested, but ideally class-based
-        authSection.innerHTML = `
-            <div style="position: relative; display: inline-block;" id="user-dropdown-container">
-                <button id="user-menu-btn" style="background: none; border: none; color: white; cursor: pointer; font-size: 16px; display: flex; align-items: center; gap: 5px;">
-                    Welcome, ${username} <span style="font-size: 12px;">▼</span>
-                </button>
-                <div id="user-dropdown" style="display: none; position: absolute; right: 0; background-color: #333; min-width: 200px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1000; border-radius: 4px; padding: 10px; margin-top: 5px;">
-                    <div style="padding: 8px 12px; color: #aaa; font-size: 12px; border-bottom: 1px solid #444; margin-bottom: 5px;">
-                        ${userEmail}
+        if (authActions) {
+            authActions.innerHTML = `
+                <div class="relative inline-block text-left" id="user-dropdown-container">
+                    <button id="user-menu-btn" class="flex items-center gap-2 text-pet-dark font-medium hover:text-pet-orange transition-colors focus:outline-none">
+                        <span>${username}</span>
+                        <i data-lucide="chevron-down" width="16"></i>
+                    </button>
+                    <!-- Dropdown menu -->
+                    <div id="user-dropdown" class="hidden absolute right-0 mt-2 w-56 rounded-xl shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-50 overflow-hidden transform transition-all duration-200 origin-top-right">
+                        <div class="py-3 px-4 border-b border-gray-100 bg-pet-cream/50">
+                            <p class="text-sm font-medium text-pet-dark truncate">${username}</p>
+                            <p class="text-xs text-gray-500 truncate">${userEmail}</p>
+                        </div>
+                        <div class="py-1">
+                            <a href="orders.html" class="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-pet-cream hover:text-pet-orange transition-colors">
+                                <i data-lucide="package" width="16"></i> My Orders
+                            </a>
+                            <a href="account.html" class="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-pet-cream hover:text-pet-orange transition-colors">
+                                <i data-lucide="user" width="16"></i> Account
+                            </a>
+                        </div>
+                        <div class="py-1 border-t border-gray-100">
+                             <a href="#" id="logout-btn" class="flex items-center gap-2 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors w-full text-left">
+                                <i data-lucide="log-out" width="16"></i> Logout
+                            </a>
+                        </div>
                     </div>
-                    <a href="orders.html" style="color: white; padding: 8px 12px; text-decoration: none; display: block;">My Orders</a>
-                    <a href="#" id="logout-btn" style="color: #ffcc00; padding: 8px 12px; text-decoration: none; display: block;">Logout</a>
                 </div>
-            </div>
-        `;
+            `;
 
-        // Dropdown Toggle Logic
-        const dropdownBtn = document.getElementById('user-menu-btn');
-        const dropdownContent = document.getElementById('user-dropdown');
+            // Re-initialize icons for the new content
+            if (window.lucide) window.lucide.createIcons();
 
-        dropdownBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
-        });
+            // Dropdown Toggle Logic
+            const dropdownBtn = document.getElementById('user-menu-btn');
+            const dropdownContent = document.getElementById('user-dropdown');
 
-        // Close dropdown when clicking outside
-        document.addEventListener('click', () => {
-            if (dropdownContent) dropdownContent.style.display = 'none';
-        });
+            if (dropdownBtn && dropdownContent) {
+                dropdownBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    dropdownContent.classList.toggle('hidden');
+                });
 
-        // Attach Logout Handler
-        document.getElementById('logout-btn').addEventListener('click', () => {
-            signOut(auth).then(() => {
-                window.location.href = 'index.html';
-            }).catch((error) => {
-                console.error("Logout Error:", error);
-            });
-        });
+                // Close dropdown when clicking outside
+                document.addEventListener('click', () => {
+                    if (!dropdownContent.classList.contains('hidden')) {
+                        dropdownContent.classList.add('hidden');
+                    }
+                });
+            }
 
-        // Email Verification Check (Optional: Alert user if not verified)
-        if (!user.emailVerified) {
-            // You could show a banner here if desired
-            // console.log("User email not verified");
+            // Attach Logout Handler
+            const logoutBtn = document.getElementById('logout-btn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    signOut(auth).then(() => {
+                        window.location.href = 'index.html';
+                    }).catch((error) => {
+                        console.error("Logout Error:", error);
+                    });
+                });
+            }
         }
 
     } else {
@@ -69,15 +89,33 @@ onAuthStateChanged(auth, (user) => {
 
         // Page Protection: Redirect if trying to access protected pages
         if (protectedPages.includes(currentPage)) {
-            // Save return URL logic could go here if needed
             window.location.href = 'login.html';
         }
 
-        authSection.innerHTML = `<a href="login.html" id="login-link">Login</a>`;
+        if (authActions) {
+            authActions.innerHTML = `
+                <a href="signup.html" class="bg-pet-dark text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-opacity-90 transition-all shadow-lg hover:shadow-xl">
+                    Sign up
+                </a>
+                <a href="login.html" class="text-pet-dark font-medium hover:text-pet-orange transition-colors text-sm">
+                    Login
+                </a>
+            `;
+        }
     }
 });
 
-// Update Cart Count (Local Storage)
+// Update Cart Count
+async function updateCartUI() {
+    if (!cartCount) return;
+    try {
+        const count = await CartService.getCartCount();
+        cartCount.innerText = count;
+        // Optional: Show/Hide badge if count > 0
+    } catch (error) {
+        console.error("Error updating cart UI:", error);
+    }
+}
 
 
 // Geolocation
